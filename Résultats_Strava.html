@@ -1,0 +1,7376 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Laura Costa - MASTER M1 STAPS UGA (ATDM)" />
+
+
+<title>Utilisation de Strava chez les coureurs amateurs</title>
+
+<script src="Résultats_Strava_files/header-attrs-2.29/header-attrs.js"></script>
+<script src="Résultats_Strava_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="Résultats_Strava_files/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="Résultats_Strava_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="Résultats_Strava_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="Résultats_Strava_files/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="Résultats_Strava_files/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="Résultats_Strava_files/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="Résultats_Strava_files/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="Résultats_Strava_files/navigation-1.1/tabsets.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+
+
+
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Utilisation de Strava chez les coureurs
+amateurs</h1>
+<h3 class="subtitle"><em>Quels impacts psychosociaux et quels impacts
+sur la pratique ?</em></h3>
+<h4 class="author"><em>Laura Costa - MASTER M1 STAPS UGA
+(ATDM)</em></h4>
+<h4 class="date"><em>Mars 2025</em></h4>
+
+</div>
+
+
+<style>
+table {
+  border-collapse: separate;
+  border-spacing: 20px;
+}
+</style>
+<p><a href="https://staps.univ-grenoble-alpes.fr/"><img src="UFRAPS.png"
+width="100" /></a></p>
+<div id="présentation-de-létude" class="section level1">
+<h1>Présentation de l’étude</h1>
+<div id="thématique" class="section level3">
+<h3>Thématique</h3>
+<p>Strava est un réseau social créé en <strong>2009</strong> qui permet
+d’enregistrer et de partager ses activités sportives à un réseau
+d’abonnés. Strava regroupe plus de <strong>135 millions d’utilisateurs
+en 2024</strong> dans plus de 190 pays <sup>1</sup>. 40 millions
+d’activités sont téléchargées chaque semaine. En 2023, la course à pied
+est le sport où le plus d’activités sont téléchargées. <sup>2</sup> Le
+réseau social propose différentes fonctionnalités : enregistrement des
+activités, suivi des progrès, encouragements(kudos), partage des
+activités, clubs… Le réseau social a également un important aspect de
+gamification avec les segments, les KOM/QOM, les Local Legends… En tant
+que réseau social dédié aux sportifs, et notamment aux coureurs
+amateurs, Strava permet aux utilisateurs d’entrer en interaction et de
+se comparer aux autres utilisateurs. Dans la communauté des utilisateurs
+se développe alors cette phrase, reprise par Strava <sup>1</sup>
+(“Strava or it didn’t happen) :</p>
+<blockquote>
+<p><em>” Si ce n’est pas sur Strava, ça n’existe pas.”</em></p>
+</blockquote>
+<p>Le but de l’étude est de savoir si <strong>l’utilisation de Strava a
+des impacts psychosociaux chez les coureurs amateurs et si elle a une
+influence sur la pratique (volume d’entraînement, fréquence
+d’entraînement, nombre de compétitions, courir malgré une
+blessure).</strong></p>
+</div>
+<div id="problématique" class="section level3">
+<h3>Problématique</h3>
+<p>L’étude de Russell <sup>3</sup> met en avant les implications
+psychosociales de l’utilisation de Strava auprès de coureurs de clubs
+universitaires à travers les Etats-Unis. Des entretiens semi-structurés
+ont permis de mettre en avant trois thèmes principaux : <strong>la
+présentation de soi, la pression sociale et la motivation</strong>.</p>
+<p>Inspirée de l’étude de Russell, cette étude dans le cadre de mon
+master STAPS s’intéresse à l’impact de l’utilisation de Strava sur
+<strong>l’auto-présentation, le stress perçu et la motivation </strong>.
+Cette étude s’adresse cependant à un public plus large (coureurs
+amateurs utilisateurs de Strava) et se fonde sur un questionnaire en
+ligne d’environ 80 questions. Cette étude s’intéresse également à des
+<strong>modifications de comportements dans la pratique</strong>
+(fréquence et volume d’entraînement, nombre de compétitions par an).
+Ainsi, la problématique de mon étude est la suivante :</p>
+<p><strong>Quels sont les impacts psychosociaux de l’utilisation de
+Strava chez les coureurs amateurs et dans quelle mesure l’utilisation de
+ce réseau social a des impacts sur la pratique de la course à pied ?
+</strong></p>
+<p>Cette étude porte sur plusieurs questions de recherche :</p>
+<ol style="list-style-type: decimal">
+<li>L’utilisation de Strava (fréquence d’utilisation, nombre d’abonnés…)
+est-elle en lien avec la manière de pratiquer ? (fréquence et volume
+d’entraînement, nombre de compétitions par an) ?</li>
+<li>Comment les coureurs amateurs se présentent-ils sur Strava ?
+Filtrent-ils ou modifient-ils ce qu’ils partagent pour contrôler leur
+image ?</li>
+<li>Est-ce que l’utilisation de Strava peut être une source de stress
+?</li>
+<li>Est-ce que l’utilisation de Strava peut être une source de
+motivation ?</li>
+</ol>
+</div>
+<div id="hypothèses" class="section level3">
+<h3>Hypothèses</h3>
+<p><strong>Hypothèse 1</strong> Plus les coureurs amateurs utilisent
+Strava, plus ils ont une fréquence et un volume d’entraînement
+élevé.</p>
+<p><strong>Hypothèse 2 : </strong> Plus les coureurs amateurs utilisent
+Strava, plus ils sont susceptibles de filtrer ou modifier ce qu’ils
+partagent pour contrôler leur image.</p>
+<p><strong>Hypothèse 3 :</strong> Plus les coureurs amateurs utilisent
+Strava, plus ils sont susceptibles de ressentir du stress.</p>
+<p><strong>Hypothèse 4 : </strong> Plus les coureurs amateurs utilisent
+Strava, plus ils sont motivés dans leur pratique.</p>
+</div>
+<div id="méthode" class="section level3">
+<h3>Méthode</h3>
+<p>Le questionnaire a été construit suite à la lecture de différents
+articles, notamment l’étude de Russell <sup>3</sup> qui s’intéresse aux
+implications psychosociales de l’utilisation de Strava chez des coureurs
+universitaires aux Etats-Unis, l’étude d’Evans <sup>4</sup> qui
+s’intéressent aux sources de motivation chez les coureurs et la thèse de
+Chapman qui examine l’impact de l’utilisation de Strava et de la
+comparaison sociale sur le bien-être, l’épuisement sportif et le plaisir
+du sport chez de jeunes coureurs non-élites <sup>5</sup>. L’étude
+d’Evans se base sur un questionnaire en ligne auprès de 25 000 coureurs
+de 7 pays, l’étude de Chapman se base sur un questionnaire en ligne
+également diffusé auprès de 200 coureurs et l’étude de Russell se base
+sur des entretiens semi-structurés auprès de 18 coureurs.</p>
+<p>En partant de ces 3 articles, d’autres articles sont venus compléter
+la création du questionnaire afin d’avoir des échelles psychométriques
+pour mesurer la présentation de soi, la pression sociale et la
+motivation.</p>
+<p>Le questionnaire a été construit de sorte d’avoir moins de 100
+questions et une durée de passation de moins de 10 minutes afin de ne
+pas décourager les répondants et d’éviter que les réponses aux dernières
+questions soient faussées car les répondants répondent sans réfléchir
+pour terminer au plus vite.</p>
+<p>Le questionnaire a été validée par notre enseignante à l’UGA avant
+diffusion. Le questionnaire comportait 84 questions : toutes les
+questions étaient obligatoires, sauf les questions comportant la mention
+“si oui”. La durée de passation était estimée à 10 minutes. Les critères
+d’inclusion étaient d’être un <strong>coureur amateur utilisateur de
+Strava et avoir plus de 18 ans</strong>. Le questionnaire était
+totalement <strong>anonyme</strong>.</p>
+<p>Le questionnaire a été diffusé sur les réseaux sociaux : mon compte
+personnel LinkedIn, mon compte personnel Strava et dans les groupes
+Facebook “Bref, je fais du trail”, “Coeur de runneuses”, et “Courir
+après 50 ans”. Le questionnaire a également été diffusé auprès de 2
+clubs de course à pied : Les Amis de la Course à Pied à Crolles et l’ALE
+Echirolles. Le questionnaire a été ouvert du <strong>28 janvier au 12
+février 2025</strong>.</p>
+<p>Les données ont été récupérées sous Excel, pour faire un premier
+traitement (suppression des valeurs non exploitables et formatage de
+certaines valeurs (exemple : ancienneté pratique : “10 ans” &gt; “10”)).
+Les analyses ont été réalisées avec R (avec les librairies tidyverse,
+vcd et psy) Dans la base de données, chaque ligne représente un coureur
+et chaque colonne une variable.</p>
+</div>
+</div>
+<div id="données-socio-démographiques" class="section level1">
+<h1>Données socio-démographiques</h1>
+<pre><code>## La taille de l&#39;échantillon est de 745 individus, avec 400 femmes et 345 hommes.</code></pre>
+<pre><code>## La moyenne d&#39;âge est de 39.9261744966443 ans, avec un écart-type de 11.3338238902361 ans.</code></pre>
+<pre><code>## La catégorie socio-professionelle la plus représentée est Cadres et professions intellectulles, qui représente 44.9664429530201 % de l&#39;échantillon, puis les employés avec 25.6375838926174 %.</code></pre>
+<div id="âge-et-sexe" class="section level3 tabset">
+<h3 class="tabset">Âge et sexe</h3>
+<div id="répartition-de-lâge" class="section level4">
+<h4>Répartition de l’âge</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">39.92617</td>
+<td align="right">38</td>
+<td align="right">11.33382</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20age-1.png" width="672" /></p>
+</div>
+<div id="répartition-des-sexes" class="section level4">
+<h4>Répartition des sexes</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="right">Khi2_ajustement</th>
+<th align="left">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Sexe</td>
+<td align="right">2393.691</td>
+<td align="left">&lt;0.001</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20sexe-1.png" width="672" /></p>
+</div>
+<div id="répartition-de-lâge-en-fonction-des-sexes"
+class="section level4">
+<h4>Répartition de l’âge en fonction des sexes</h4>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20age%20en%20fonction%20des%20sexe-1.png" width="672" /></p>
+</div>
+</div>
+<div id="catégories-socio-professionnelles"
+class="section level3 tabset">
+<h3 class="tabset">Catégories socio-professionnelles</h3>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="right">Khi2_ajustement</th>
+<th align="left">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Catégorie</td>
+<td align="right">436.6224</td>
+<td align="left">&gt;0.001</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20categorie%20socio%20pro-1.png" width="672" /></p>
+</div>
+</div>
+<div id="utilisation-de-strava" class="section level1">
+<h1>Utilisation de Strava</h1>
+<div id="mesure-de-lintensité-dutilisation"
+class="section level3 tabset">
+<h3 class="tabset">Mesure de l’intensité d’utilisation</h3>
+<p>Les questions 20 à 24 (Echelle de Linkert) sont issues d’une
+traduction et adaptation du Facebook Intensity Scale, utilisé dans
+l’étude d’Ellison <sup>8</sup> et repris dans l’étude de Ross
+<sup>9</sup>, en remplaçant “Facebook” par “Strava”. Il y a donc
+<strong>5 items</strong> pour cette échelle de mesure adaptée pour
+identifier à quel point l’utilisation de Strava fait partie du quotidien
+de l’utilisateur. Cette échelle est renommée pour l’étude en Strava
+Intensity Scale (SIS).</p>
+<p>L’alpha de Cronbach dans l’étude d’Ellison est de 0.83 <sup>8</sup>
+et de 0.85 dans l’étude de Ross <sup>9</sup>.</p>
+<p>Un score bas au SIS indique que Strava fait peu partie du quotidien
+de l’utilisateur et qu’il y est peu attaché tandis qu’un score haut au
+SIS indique que l’utilisateur utilise Strava très fréquemment et est
+affecté négativement s’il ne peut pas l’utiliser.</p>
+<pre><code>## L&#39;alpha de Cronbach sur les 5 items est de 0.763630836835257.</code></pre>
+<p>L’alpha de Cronbach est acceptable.</p>
+<div id="sis-1" class="section level4">
+<h4>SIS 1</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2.887248</td>
+<td align="right">3</td>
+<td align="right">1.048891</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20SIS%201-1.png" width="672" /></p>
+</div>
+<div id="sis-2" class="section level4">
+<h4>SIS 2</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2.283221</td>
+<td align="right">2</td>
+<td align="right">1.018142</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20SIS%202-1.png" width="672" /></p>
+</div>
+<div id="sis-3" class="section level4">
+<h4>SIS 3</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1.861745</td>
+<td align="right">2</td>
+<td align="right">0.9635562</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20SIS%203-1.png" width="672" /></p>
+</div>
+<div id="sis-4" class="section level4">
+<h4>SIS 4</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2.324832</td>
+<td align="right">2</td>
+<td align="right">1.028747</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20SIS%204-1.png" width="672" /></p>
+</div>
+<div id="sis-5" class="section level4">
+<h4>SIS 5</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2.283221</td>
+<td align="right">2</td>
+<td align="right">1.018142</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20SIS%205-1.png" width="672" /></p>
+</div>
+<div id="score-sis" class="section level4">
+<h4>SCORE SIS</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+<th align="right">Khi2_ajustement</th>
+<th align="left">P.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">SIS1</td>
+<td align="right">2.887248</td>
+<td align="right">3</td>
+<td align="right">1.0488914</td>
+<td align="right">99.17181</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="even">
+<td align="left">SIS2</td>
+<td align="right">2.283221</td>
+<td align="right">2</td>
+<td align="right">1.0181421</td>
+<td align="right">53.58792</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="odd">
+<td align="left">SIS3</td>
+<td align="right">1.861745</td>
+<td align="right">2</td>
+<td align="right">0.9635562</td>
+<td align="right">248.31544</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="even">
+<td align="left">SIS4</td>
+<td align="right">2.324832</td>
+<td align="right">2</td>
+<td align="right">1.0287472</td>
+<td align="right">39.53154</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="odd">
+<td align="left">SIS5</td>
+<td align="right">2.260403</td>
+<td align="right">2</td>
+<td align="right">1.0685395</td>
+<td align="right">43.04295</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="even">
+<td align="left">Total</td>
+<td align="right">11.617450</td>
+<td align="right">11</td>
+<td align="right">3.6786169</td>
+<td align="right">119.75705</td>
+<td align="left">&lt;0.001</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20SCORE%20SIS-1.png" width="672" /></p>
+</div>
+</div>
+<div id="compléments" class="section level3 tabset">
+<h3 class="tabset">Compléments</h3>
+<div id="fréquence-de-publication" class="section level4">
+<h4>Fréquence de publication</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">4.019595</td>
+<td align="right">4</td>
+<td align="right">1.751847</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20frequence%20publication-1.png" width="672" /></p>
+</div>
+<div id="fréquence-de-consultation" class="section level4">
+<h4>Fréquence de consultation</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">5.148448</td>
+<td align="right">6</td>
+<td align="right">2.159883</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20frequence%20consultation-1.png" width="672" /></p>
+</div>
+<div id="nombre-dabonnés" class="section level4">
+<h4>Nombre d’abonnés</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Médiane</th>
+<th align="right">Moyenne</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">40</td>
+<td align="right">68.49324</td>
+<td align="right">94.93197</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20nb%20abonnes-1.png" width="672" /></p>
+</div>
+<div id="nombre-dabonnements" class="section level4">
+<h4>Nombre d’abonnements</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Médiane</th>
+<th align="right">Moyenne</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">40</td>
+<td align="right">68.32206</td>
+<td align="right">80.03015</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20nb%20abonnements-1.png" width="672" /></p>
+</div>
+</div>
+<div id="mesure-de-la-sociabilité-en-ligne"
+class="section level3 tabset">
+<h3 class="tabset">Mesure de la sociabilité en ligne</h3>
+<p>Les questions 39 à 42 (Echelle de Linkert) sont une traduction et
+adaptation du Online Sociability Functions (OSF) utilisé dans l’étude de
+Ross<sup>9</sup> qui mesure la sociabilité en ligne. L’alpha de Cronbach
+dans l’étude de Ross<sup>9</sup> est de 0.74. Il y a donc <strong>4
+items</strong> pour cette échelle de mesure adaptée pour identifier à
+quel point chaque utilisateur est sociable sur Strava.</p>
+<p>On pourrait ajouter le nombre de clubs Strava dont l’utilisateur fait
+partie (question 38) et le nombre de kudos reçus (question 42) pour
+enrichir cette échelle mais cela ne modifie quasiment pas l’alpha de
+Cronbach.</p>
+<p>Un score bas au OSF indique que l’utilisateur utilise peu les
+fonctionnalités de sociabilité en ligne, tandis qu’un score haut indique
+que l’utilisateur utilise beaucoup de fonctionnalités de sociabilité en
+ligne.</p>
+<pre><code>## L&#39;alpha de Cronbach sur les 4 items est de 0.601301166919539.</code></pre>
+<p>L’alpha de Cronbach est un peu faible, cela peut s’expliquer par le
+fait qu’il s’agit d’une traduction et adaptation du questionnaire
+d’origine dans le cadre de cette étude.</p>
+<div id="kudos-donnés" class="section level4">
+<h4>Kudos donnés</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">3.50604</td>
+<td align="right">4</td>
+<td align="right">0.7461576</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20nb%20kudos%20donnes-1.png" width="672" /></p>
+</div>
+<div id="commentaires-donnés" class="section level4">
+<h4>Commentaires donnés</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2.175839</td>
+<td align="right">2</td>
+<td align="right">0.6537373</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20commentaires%20donnes-1.png" width="672" /></p>
+</div>
+<div id="publications" class="section level4">
+<h4>Publications</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1.103356</td>
+<td align="right">1</td>
+<td align="right">0.3757459</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20publications-1.png" width="672" /></p>
+</div>
+<div id="commentaires-reçus" class="section level4">
+<h4>Commentaires reçus</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2.256376</td>
+<td align="right">2</td>
+<td align="right">0.6091068</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20commentaires%20recus-1.png" width="672" /></p>
+</div>
+<div id="score-osf" class="section level4">
+<h4>SCORE OSF</h4>
+<table>
+<colgroup>
+<col width="27%" />
+<col width="12%" />
+<col width="11%" />
+<col width="15%" />
+<col width="22%" />
+<col width="11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+<th align="right">Khi2_ajustement</th>
+<th align="left">P.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Kudos donnés</td>
+<td align="right">3.506040</td>
+<td align="right">4</td>
+<td align="right">0.7461576</td>
+<td align="right">680.0470</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="even">
+<td align="left">Commentaires donnés</td>
+<td align="right">2.175839</td>
+<td align="right">2</td>
+<td align="right">0.6537373</td>
+<td align="right">693.7168</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="odd">
+<td align="left">Commentaires reçus</td>
+<td align="right">2.256376</td>
+<td align="right">2</td>
+<td align="right">0.6091068</td>
+<td align="right">763.2040</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="even">
+<td align="left">Publications</td>
+<td align="right">1.103356</td>
+<td align="right">1</td>
+<td align="right">0.3757459</td>
+<td align="right">1767.6711</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="odd">
+<td align="left">Total</td>
+<td align="right">9.041611</td>
+<td align="right">9</td>
+<td align="right">1.6508836</td>
+<td align="right">783.2523</td>
+<td align="left">&lt;0.001</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20SCORE%20OSF-1.png" width="672" /></p>
+</div>
+</div>
+<div id="compléments-1" class="section level3 tabset">
+<h3 class="tabset">Compléments</h3>
+<div id="clubs-strava" class="section level4">
+<h4>Clubs Strava</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2.674003</td>
+<td align="right">1</td>
+<td align="right">5.03045</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20club%20strava-1.png" width="672" /></p>
+</div>
+<div id="nombre-de-kudos-reçus" class="section level4">
+<h4>Nombre de kudos reçus</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">16.00808</td>
+<td align="right">10</td>
+<td align="right">15.22305</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20nb%20kudos%20recus-1.png" width="672" /></p>
+</div>
+</div>
+<div id="mesure-de-lexposition" class="section level3 tabset">
+<h3 class="tabset">Mesure de l’exposition</h3>
+<p>Les questions 25 à 28 (Echelle de Linkert) sont un extrait, une
+traduction et adaptation du Facebook questionnaire utilisé dans l’étude
+de Ross<sup>9</sup>. Dans l’étude de Ross, il n’est pas mentionné que
+ces items mesurent le niveau d’exposition. Dans l’étude présente, une
+échelle est donc créée pour mesurer le niveau d’exposition sur Strava
+(EXPOSITION). Il y a donc <strong>10 items</strong> pour cette échelle
+de mesure adaptée pour identifier à quel point chaque utilisateur expose
+des informations personnelles sur Strava.</p>
+<p>Un score bas indique l’utilisateur partage peu d’informations
+personnelles avec une restriction de public tandis qu’un score indique
+l’utilisateur partage beaucoup d’informations personnelles sans
+restriction de public.</p>
+<pre><code>## L&#39;alpha de Cronbach sur les 10 items est de 0.78033975325236.</code></pre>
+<p>L’alpha de Cronbach est acceptable.</p>
+<div id="activités" class="section level4">
+<h4>Activités</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2.421476</td>
+<td align="right">2</td>
+<td align="right">0.5482822</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20activites-1.png" width="672" /></p>
+</div>
+<div id="horaires" class="section level4">
+<h4>Horaires</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2.32349</td>
+<td align="right">2</td>
+<td align="right">0.6275903</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20horaires-1.png" width="672" /></p>
+</div>
+<div id="fréquence-cardiaque" class="section level4">
+<h4>Fréquence cardiaque</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2.151678</td>
+<td align="right">2</td>
+<td align="right">0.7583411</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20FC-1.png" width="672" /></p>
+</div>
+<div id="allure" class="section level4">
+<h4>Allure</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2.365101</td>
+<td align="right">2</td>
+<td align="right">0.6031867</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20allure-1.png" width="672" /></p>
+</div>
+<div id="carte" class="section level4">
+<h4>Carte</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1.851007</td>
+<td align="right">2</td>
+<td align="right">0.8250625</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20carte-1.png" width="672" /></p>
+</div>
+<div id="publication-entraînement" class="section level4">
+<h4>Publication entraînement</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">3.528859</td>
+<td align="right">4</td>
+<td align="right">0.7438182</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20publication%20entrainement-1.png" width="672" /></p>
+</div>
+<div id="publication-compétition" class="section level4">
+<h4>Publication compétition</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">3.719463</td>
+<td align="right">4</td>
+<td align="right">0.7552396</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20publication%20competition-1.png" width="672" /></p>
+</div>
+<div id="nommage-activité" class="section level4">
+<h4>Nommage activité</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2.775235</td>
+<td align="right">3</td>
+<td align="right">0.968134</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20nommage%20activite-1.png" width="672" /></p>
+</div>
+<div id="commentaire-activité" class="section level4">
+<h4>Commentaire activité</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2.259758</td>
+<td align="right">2</td>
+<td align="right">0.8506116</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20commentaire%20activite-1.png" width="672" /></p>
+</div>
+<div id="photo-activité" class="section level4">
+<h4>Photo activité</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2.252022</td>
+<td align="right">2</td>
+<td align="right">0.6871404</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20photo%20activite-1.png" width="672" /></p>
+</div>
+<div id="score-exposition" class="section level4">
+<h4>SCORE EXPOSITION</h4>
+<table>
+<colgroup>
+<col width="28%" />
+<col width="13%" />
+<col width="10%" />
+<col width="14%" />
+<col width="21%" />
+<col width="10%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+<th align="right">Khi2_ajustement</th>
+<th align="left">P.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Activités</td>
+<td align="right">2.421476</td>
+<td align="right">2</td>
+<td align="right">0.5482822</td>
+<td align="right">318.03490</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="even">
+<td align="left">Horaires</td>
+<td align="right">2.323490</td>
+<td align="right">2</td>
+<td align="right">0.6275903</td>
+<td align="right">212.33020</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="odd">
+<td align="left">Fréquence cardiaque</td>
+<td align="right">2.151678</td>
+<td align="right">2</td>
+<td align="right">0.7583411</td>
+<td align="right">41.83356</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="even">
+<td align="left">Allure</td>
+<td align="right">2.365101</td>
+<td align="right">2</td>
+<td align="right">0.6031867</td>
+<td align="right">245.87383</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="odd">
+<td align="left">Départ et arrivée</td>
+<td align="right">1.851007</td>
+<td align="right">2</td>
+<td align="right">0.8250625</td>
+<td align="right">28.99597</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="even">
+<td align="left">Entraînement</td>
+<td align="right">3.528859</td>
+<td align="right">4</td>
+<td align="right">0.7438182</td>
+<td align="right">729.37852</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="odd">
+<td align="left">Compétition</td>
+<td align="right">3.719463</td>
+<td align="right">4</td>
+<td align="right">0.7552396</td>
+<td align="right">1427.69799</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="even">
+<td align="left">Nommage activité</td>
+<td align="right">2.775235</td>
+<td align="right">3</td>
+<td align="right">0.9681340</td>
+<td align="right">103.08883</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="odd">
+<td align="left">Commentaire activité</td>
+<td align="right">2.259758</td>
+<td align="right">2</td>
+<td align="right">0.8506116</td>
+<td align="right">277.02153</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="even">
+<td align="left">Photo activité</td>
+<td align="right">2.252022</td>
+<td align="right">2</td>
+<td align="right">0.6871404</td>
+<td align="right">547.75741</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="odd">
+<td align="left">Total</td>
+<td align="right">25.655870</td>
+<td align="right">26</td>
+<td align="right">4.3157861</td>
+<td align="right">1844.85155</td>
+<td align="left">&lt;0.001</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20SCORE%20EXPOSITION-1.png" width="672" /></p>
+</div>
+</div>
+<div id="autres-mesures" class="section level3 tabset">
+<h3 class="tabset">Autres mesures</h3>
+<div id="catégorie-dabonnement" class="section level4">
+<h4>Catégorie d’abonnement</h4>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20categorie%20abonnement-1.png" width="672" /></p>
+</div>
+<div id="ancienneté-sur-strava" class="section level4">
+<h4>Ancienneté sur Strava</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">4.864065</td>
+<td align="right">5</td>
+<td align="right">2.918311</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20anciennete%20strava-1.png" width="672" /></p>
+</div>
+<div id="buts-utilisation-strava" class="section level4">
+<h4>Buts utilisation Strava</h4>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20but%20strava-1.png" width="672" /></p>
+</div>
+<div id="fonctionnalité-la-plus-utile-dans-la-pratique"
+class="section level4">
+<h4>Fonctionnalité la plus utile dans la pratique</h4>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20fonctionnalite%20strava-1.png" width="672" /></p>
+</div>
+<div id="restriction-abonnés" class="section level4">
+<h4>Restriction abonnés</h4>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20restriction%20abonnes-1.png" width="672" /></p>
+</div>
+<div id="désabonnement" class="section level4">
+<h4>Désabonnement</h4>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20desabonnement-1.png" width="672" /></p>
+</div>
+<div id="blocage" class="section level4">
+<h4>Blocage</h4>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20blocage-1.png" width="672" /></p>
+<pre><code>## Le nombre d&#39;individus considérés 189.</code></pre>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20blocage-2.png" width="672" /></p>
+</div>
+<div id="type-dabonnés" class="section level4">
+<h4>Type d’abonnés</h4>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20type%20abonnes-1.png" width="672" /></p>
+</div>
+<div id="type-dabonnements" class="section level4">
+<h4>Type d’abonnements</h4>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20type%20abonnements-1.png" width="672" /></p>
+</div>
+</div>
+</div>
+<div id="lien-données-socio-démographiques-et-utilisation-de-strava"
+class="section level1">
+<h1>Lien données socio-démographiques et utilisation de Strava</h1>
+<div id="age---strava" class="section level3 tabset">
+<h3 class="tabset">Age - Strava</h3>
+<p>La question est de savoir ici s’il existe des liens entre l’âge et
+l’utilisation de Strava. Il y a une faible corrélation entre l’âge et
+:</p>
+<ul>
+<li>Score SIS (-0.11)</li>
+<li>Fréquence publication (-0.12)</li>
+<li>Fréquence consultation (-0.18)</li>
+<li>Ancienneté Strava (0.24)</li>
+</ul>
+<p>Il n’est pas possible de rejeter H0 pour le lien entre l’âge et la
+catégorie d’abonnement (gratuit/payant).</p>
+<div id="corrélations" class="section level4">
+<h4>Corrélations</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:left;">
+Age
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+SCORE SIS
+</td>
+<td style="text-align:left;">
+-0.11
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SCORE OSF
+</td>
+<td style="text-align:left;">
+0.09
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SCORE EXPO
+</td>
+<td style="text-align:left;">
+0.02
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Clubs Strava
+</td>
+<td style="text-align:left;">
+-0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Kudos reçus
+</td>
+<td style="text-align:left;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fréquence publication
+</td>
+<td style="text-align:left;">
+-0.12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fréquence consultation
+</td>
+<td style="text-align:left;">
+-0.18
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Nombre d’abonnés
+</td>
+<td style="text-align:left;">
+-0.06
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Nombre d’abonnements
+</td>
+<td style="text-align:left;">
+-0.09
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ancienneté Strava
+</td>
+<td style="text-align:left;">
+<span style="color:red;">0.24</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="visualisation-graphique" class="section level4 tabset">
+<h4 class="tabset">Visualisation graphique</h4>
+<div id="score-sis-1" class="section level5">
+<h5>SCORE SIS</h5>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/visualisation%20correlation%20age%20-%20strava-1.png" width="672" /></p>
+</div>
+<div id="fréquence-consultation" class="section level5">
+<h5>Fréquence consultation</h5>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/freq%20cons%20age-1.png" width="672" /></p>
+</div>
+<div id="fréquence-publication" class="section level5">
+<h5>Fréquence publication</h5>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/freq%20publi%20age-1.png" width="672" /></p>
+</div>
+<div id="ancienneté-strava" class="section level5">
+<h5>Ancienneté Strava</h5>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/anciennet%C3%A9%20strava%20age-1.png" width="672" /></p>
+</div>
+</div>
+<div id="test-t-de-student" class="section level4">
+<h4>Test t de Student</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:right;">
+Student
+</th>
+<th style="text-align:left;">
+p_value
+</th>
+<th style="text-align:right;">
+Gratuit
+</th>
+<th style="text-align:right;">
+Payant
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Lien catégorie d’abonnement et age
+</td>
+<td style="text-align:right;">
+1.819506
+</td>
+<td style="text-align:left;">
+sup. 0.001
+</td>
+<td style="text-align:right;">
+40.4834
+</td>
+<td style="text-align:right;">
+38.90494
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="sexe---strava" class="section level3 tabset">
+<h3 class="tabset">Sexe - Strava</h3>
+<p>La question est de savoir ici s’il existe des liens entre le sexe et
+l’utilisation de Strava.</p>
+<p>Les moyennes sont significativement différentes entre hommes et
+femmes (p &lt; 0.05) pour :</p>
+<ul>
+<li>Score EXPO (H : 26,3 / F: 24,9)</li>
+<li>Kudos reçus (H : 17,7 / F: 13,9)</li>
+<li>Fréquence publication (H : 4,3 / F: 3,7)</li>
+<li>Nombre abonnés (H : 82,7 / F: 52)</li>
+<li>Nombre abonnements (H : 81,3 / F: 53,4)</li>
+<li>Ancienneté Strava (H : 5,3 / F: 4,4)</li>
+</ul>
+<p>Il est possible de rejeter H0 (p &lt; 0.001) pour la dépendance entre
+le sexe et la catégorie d’abonnement. Il y a une faible dépendance
+(0,22) : les femmes choisissent plus l’abonnement gratuit.</p>
+<div id="test-t-de-student-1" class="section level4">
+<h4>Test t de Student</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:right;">
+Student
+</th>
+<th style="text-align:left;">
+p_value
+</th>
+<th style="text-align:right;">
+Homme
+</th>
+<th style="text-align:right;">
+Femme
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+SCORE SIS
+</td>
+<td style="text-align:right;">
+1.720384
+</td>
+<td style="text-align:left;">
+sup. 0.001
+</td>
+<td style="text-align:right;">
+11.832500
+</td>
+<td style="text-align:right;">
+11.368116
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SCORE OSF
+</td>
+<td style="text-align:right;">
+1.720384
+</td>
+<td style="text-align:left;">
+sup. 0.001
+</td>
+<td style="text-align:right;">
+9.035000
+</td>
+<td style="text-align:right;">
+9.049275
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SCORE EXPO
+</td>
+<td style="text-align:right;">
+1.720384
+</td>
+<td style="text-align:left;">
+&lt;0.001
+</td>
+<td style="text-align:right;">
+26.334171
+</td>
+<td style="text-align:right;">
+24.868805
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Clubs Strava
+</td>
+<td style="text-align:right;">
+1.720384
+</td>
+<td style="text-align:left;">
+sup. 0.001
+</td>
+<td style="text-align:right;">
+3.056410
+</td>
+<td style="text-align:right;">
+2.231454
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Kudos reçus
+</td>
+<td style="text-align:right;">
+1.720384
+</td>
+<td style="text-align:left;">
+&lt;0.001
+</td>
+<td style="text-align:right;">
+17.799499
+</td>
+<td style="text-align:right;">
+13.930233
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fréquence publication
+</td>
+<td style="text-align:right;">
+1.720384
+</td>
+<td style="text-align:left;">
+&lt;0.001
+</td>
+<td style="text-align:right;">
+4.276515
+</td>
+<td style="text-align:right;">
+3.723837
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fréquence consultation
+</td>
+<td style="text-align:right;">
+1.720384
+</td>
+<td style="text-align:left;">
+sup. 0.001
+</td>
+<td style="text-align:right;">
+5.347990
+</td>
+<td style="text-align:right;">
+4.916910
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Nombre abonnés
+</td>
+<td style="text-align:right;">
+1.720384
+</td>
+<td style="text-align:left;">
+&lt;0.001
+</td>
+<td style="text-align:right;">
+82.710328
+</td>
+<td style="text-align:right;">
+52.037901
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Nombre abonnements
+</td>
+<td style="text-align:right;">
+1.720384
+</td>
+<td style="text-align:left;">
+&lt;0.001
+</td>
+<td style="text-align:right;">
+81.287879
+</td>
+<td style="text-align:right;">
+53.352770
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ancienneté Strava
+</td>
+<td style="text-align:right;">
+1.720384
+</td>
+<td style="text-align:left;">
+&lt;0.001
+</td>
+<td style="text-align:right;">
+5.273183
+</td>
+<td style="text-align:right;">
+4.389535
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="visualisation-graphique-1" class="section level4">
+<h4>Visualisation graphique</h4>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/unnamed-chunk-1-1.png" width="672" /><img src="R%C3%A9sultats_Strava_files/figure-html/unnamed-chunk-1-2.png" width="672" /><img src="R%C3%A9sultats_Strava_files/figure-html/unnamed-chunk-1-3.png" width="672" /></p>
+</div>
+<div id="khi²-et-cramer" class="section level4">
+<h4>Khi² et Cramer</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:right;">
+Khi2_indépendance
+</th>
+<th style="text-align:left;">
+P.value
+</th>
+<th style="text-align:right;">
+Coefficient_Cramer
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Lien catégorie d’abonnement et sexe
+</td>
+<td style="text-align:right;">
+36.49
+</td>
+<td style="text-align:left;">
+&lt; 0.001
+</td>
+<td style="text-align:right;">
+0.22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="visualisation-graphique-2" class="section level4">
+<h4>Visualisation graphique</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Type_abonnement</th>
+<th align="left">Sexe</th>
+<th align="right">Observé</th>
+<th align="right">Attendu</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Gratuit</td>
+<td align="left">Femme</td>
+<td align="right">219</td>
+<td align="right">258.7919</td>
+</tr>
+<tr class="even">
+<td align="left">Payant</td>
+<td align="left">Femme</td>
+<td align="right">181</td>
+<td align="right">141.2081</td>
+</tr>
+<tr class="odd">
+<td align="left">Gratuit</td>
+<td align="left">Homme</td>
+<td align="right">263</td>
+<td align="right">223.2081</td>
+</tr>
+<tr class="even">
+<td align="left">Payant</td>
+<td align="left">Homme</td>
+<td align="right">82</td>
+<td align="right">121.7919</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/heatmap%20categorie%20abonnement%20et%20sexe-1.png" width="672" /></p>
+</div>
+</div>
+<div id="catégorie-socio-professionnelle---strava"
+class="section level3 tabset">
+<h3 class="tabset">Catégorie socio-professionnelle - Strava</h3>
+<p>La question est de savoir ici s’il existe des liens entre la
+catégorie socio-professionnelle et l’utilisation de Strava.</p>
+<p>Les moyennes sont significativement différentes entre CSP (p &lt;
+0.05) :</p>
+<ul>
+<li>Score SIS</li>
+<li>SCORE OSF</li>
+<li>SCORE EXPO</li>
+<li>Club Strava</li>
+<li>Kudos reçus</li>
+<li>Fréquence publication</li>
+<li>Fréquence consultation</li>
+<li>Nombre d’abonnés</li>
+<li>Nombre d’abonnements</li>
+<li>Ancienneté Strava</li>
+</ul>
+<p>Les étudiants (8) ont des moyennes significativement plus élevées que
+les artisans (2) et professions intermédiaires (4) et pour les scores
+SIS, OSF et EXPO, de même pour les ouvriers (6) par rapport aux
+professions intermédiaires.</p>
+<p>Les étudiants (8) ont des moyennes significativement plus élevées que
+les artisans (2), les cadres (3), les professions intermédiaires (4),
+les employés (5) et les retraités (7) pour la fréquence de
+consultation.</p>
+<p>Les étudiants (8) ont des moyennes significativement plus faibles que
+les artisans (2), les cadres (3) et les retraités (7) pour l’ancienneté
+sur Strava.</p>
+<p>Il n’est pas possible de rejeter H0 pour le lien entre la catégorie
+socio-professionnelle et la catégorie d’abonnement (gratuit/payant).</p>
+<div id="anova" class="section level4">
+<h4>ANOVA</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:right;">
+F_value
+</th>
+<th style="text-align:left;">
+P_value
+</th>
+<th style="text-align:right;">
+Agriculteurs
+</th>
+<th style="text-align:right;">
+Artisans
+</th>
+<th style="text-align:right;">
+Cadres
+</th>
+<th style="text-align:right;">
+Intermédiaires
+</th>
+<th style="text-align:right;">
+Employés
+</th>
+<th style="text-align:right;">
+Ouvriers
+</th>
+<th style="text-align:right;">
+Retraités
+</th>
+<th style="text-align:right;">
+Etudiants
+</th>
+<th style="text-align:right;">
+Autres
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+SCORE SIS
+</td>
+<td style="text-align:right;">
+3.2975864
+</td>
+<td style="text-align:left;">
+&lt; 0.05
+</td>
+<td style="text-align:right;">
+14.333333
+</td>
+<td style="text-align:right;">
+10.978723
+</td>
+<td style="text-align:right;">
+11.561194
+</td>
+<td style="text-align:right;">
+10.743590
+</td>
+<td style="text-align:right;">
+11.649215
+</td>
+<td style="text-align:right;">
+13.482759
+</td>
+<td style="text-align:right;">
+10.722222
+</td>
+<td style="text-align:right;">
+13.447368
+</td>
+<td style="text-align:right;">
+10.833333
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SCORE OSF
+</td>
+<td style="text-align:right;">
+1.1957548
+</td>
+<td style="text-align:left;">
+&lt; 0.05
+</td>
+<td style="text-align:right;">
+8.333333
+</td>
+<td style="text-align:right;">
+8.978723
+</td>
+<td style="text-align:right;">
+9.083582
+</td>
+<td style="text-align:right;">
+8.743590
+</td>
+<td style="text-align:right;">
+8.984293
+</td>
+<td style="text-align:right;">
+9.310345
+</td>
+<td style="text-align:right;">
+9.555556
+</td>
+<td style="text-align:right;">
+9.394737
+</td>
+<td style="text-align:right;">
+8.166667
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SCORE EXPO
+</td>
+<td style="text-align:right;">
+2.1161673
+</td>
+<td style="text-align:left;">
+&lt; 0.05
+</td>
+<td style="text-align:right;">
+23.666667
+</td>
+<td style="text-align:right;">
+26.404255
+</td>
+<td style="text-align:right;">
+25.426426
+</td>
+<td style="text-align:right;">
+25.205128
+</td>
+<td style="text-align:right;">
+25.631579
+</td>
+<td style="text-align:right;">
+27.482759
+</td>
+<td style="text-align:right;">
+25.470588
+</td>
+<td style="text-align:right;">
+27.131579
+</td>
+<td style="text-align:right;">
+22.500000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Club Strava
+</td>
+<td style="text-align:right;">
+0.6693189
+</td>
+<td style="text-align:left;">
+&lt; 0.05
+</td>
+<td style="text-align:right;">
+1.333333
+</td>
+<td style="text-align:right;">
+2.204546
+</td>
+<td style="text-align:right;">
+2.735736
+</td>
+<td style="text-align:right;">
+1.333333
+</td>
+<td style="text-align:right;">
+2.967568
+</td>
+<td style="text-align:right;">
+3.793103
+</td>
+<td style="text-align:right;">
+1.352941
+</td>
+<td style="text-align:right;">
+1.810811
+</td>
+<td style="text-align:right;">
+2.400000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Kudos reçus
+</td>
+<td style="text-align:right;">
+0.5794730
+</td>
+<td style="text-align:left;">
+&lt; 0.05
+</td>
+<td style="text-align:right;">
+9.333333
+</td>
+<td style="text-align:right;">
+17.553192
+</td>
+<td style="text-align:right;">
+15.859281
+</td>
+<td style="text-align:right;">
+9.333333
+</td>
+<td style="text-align:right;">
+15.021053
+</td>
+<td style="text-align:right;">
+20.103448
+</td>
+<td style="text-align:right;">
+14.500000
+</td>
+<td style="text-align:right;">
+16.078947
+</td>
+<td style="text-align:right;">
+15.500000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fréquence publication
+</td>
+<td style="text-align:right;">
+1.5562296
+</td>
+<td style="text-align:left;">
+&lt; 0.05
+</td>
+<td style="text-align:right;">
+2.666667
+</td>
+<td style="text-align:right;">
+4.255319
+</td>
+<td style="text-align:right;">
+4.013473
+</td>
+<td style="text-align:right;">
+4.237179
+</td>
+<td style="text-align:right;">
+3.872340
+</td>
+<td style="text-align:right;">
+3.678571
+</td>
+<td style="text-align:right;">
+3.638889
+</td>
+<td style="text-align:right;">
+4.657895
+</td>
+<td style="text-align:right;">
+3.666667
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fréquence consultation
+</td>
+<td style="text-align:right;">
+4.5226023
+</td>
+<td style="text-align:left;">
+&lt; 0.05
+</td>
+<td style="text-align:right;">
+5.333333
+</td>
+<td style="text-align:right;">
+5.117021
+</td>
+<td style="text-align:right;">
+5.143713
+</td>
+<td style="text-align:right;">
+4.916667
+</td>
+<td style="text-align:right;">
+4.944444
+</td>
+<td style="text-align:right;">
+5.517857
+</td>
+<td style="text-align:right;">
+4.111111
+</td>
+<td style="text-align:right;">
+6.973684
+</td>
+<td style="text-align:right;">
+4.833333
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Nombre abonnés
+</td>
+<td style="text-align:right;">
+1.1992079
+</td>
+<td style="text-align:left;">
+&lt; 0.05
+</td>
+<td style="text-align:right;">
+23.333333
+</td>
+<td style="text-align:right;">
+86.340425
+</td>
+<td style="text-align:right;">
+70.734940
+</td>
+<td style="text-align:right;">
+80.448718
+</td>
+<td style="text-align:right;">
+60.031746
+</td>
+<td style="text-align:right;">
+64.137931
+</td>
+<td style="text-align:right;">
+36.055556
+</td>
+<td style="text-align:right;">
+58.578947
+</td>
+<td style="text-align:right;">
+119.500000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Nombre abonnements
+</td>
+<td style="text-align:right;">
+0.7455126
+</td>
+<td style="text-align:left;">
+&lt; 0.05
+</td>
+<td style="text-align:right;">
+28.333333
+</td>
+<td style="text-align:right;">
+76.680851
+</td>
+<td style="text-align:right;">
+69.490964
+</td>
+<td style="text-align:right;">
+75.532467
+</td>
+<td style="text-align:right;">
+62.815790
+</td>
+<td style="text-align:right;">
+84.344828
+</td>
+<td style="text-align:right;">
+45.411765
+</td>
+<td style="text-align:right;">
+59.894737
+</td>
+<td style="text-align:right;">
+80.833333
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ancienneté Strava
+</td>
+<td style="text-align:right;">
+2.9154476
+</td>
+<td style="text-align:left;">
+&lt; 0.05
+</td>
+<td style="text-align:right;">
+3.000000
+</td>
+<td style="text-align:right;">
+5.638298
+</td>
+<td style="text-align:right;">
+5.116766
+</td>
+<td style="text-align:right;">
+4.441558
+</td>
+<td style="text-align:right;">
+4.586387
+</td>
+<td style="text-align:right;">
+5.137931
+</td>
+<td style="text-align:right;">
+6.000000
+</td>
+<td style="text-align:right;">
+3.421053
+</td>
+<td style="text-align:right;">
+4.333333
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="tests-post-hoc" class="section level4">
+<h4>Tests post hoc</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+diff
+</th>
+<th style="text-align:right;">
+lwr
+</th>
+<th style="text-align:right;">
+upr
+</th>
+<th style="text-align:right;">
+p adj
+</th>
+<th style="text-align:left;">
+Comparison
+</th>
+<th style="text-align:left;">
+Variable
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+2.468645
+</td>
+<td style="text-align:right;">
+0.0022731
+</td>
+<td style="text-align:right;">
+4.9350169
+</td>
+<td style="text-align:right;">
+0.0495797
+</td>
+<td style="text-align:left;">
+8-2
+</td>
+<td style="text-align:left;">
+SCORE SIS TOTAL
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.739169
+</td>
+<td style="text-align:right;">
+0.2802997
+</td>
+<td style="text-align:right;">
+5.1980380
+</td>
+<td style="text-align:right;">
+0.0162625
+</td>
+<td style="text-align:left;">
+6-4
+</td>
+<td style="text-align:left;">
+SCORE SIS TOTAL
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.703779
+</td>
+<td style="text-align:right;">
+0.4672229
+</td>
+<td style="text-align:right;">
+4.9403344
+</td>
+<td style="text-align:right;">
+0.0056880
+</td>
+<td style="text-align:left;">
+8-4
+</td>
+<td style="text-align:left;">
+SCORE SIS TOTAL
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.468645
+</td>
+<td style="text-align:right;">
+0.0022731
+</td>
+<td style="text-align:right;">
+4.9350169
+</td>
+<td style="text-align:right;">
+0.0495797
+</td>
+<td style="text-align:left;">
+8-2
+</td>
+<td style="text-align:left;">
+SCORE OSF
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.739169
+</td>
+<td style="text-align:right;">
+0.2802997
+</td>
+<td style="text-align:right;">
+5.1980380
+</td>
+<td style="text-align:right;">
+0.0162625
+</td>
+<td style="text-align:left;">
+6-4
+</td>
+<td style="text-align:left;">
+SCORE OSF
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.703779
+</td>
+<td style="text-align:right;">
+0.4672229
+</td>
+<td style="text-align:right;">
+4.9403344
+</td>
+<td style="text-align:right;">
+0.0056880
+</td>
+<td style="text-align:left;">
+8-4
+</td>
+<td style="text-align:left;">
+SCORE OSF
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.468645
+</td>
+<td style="text-align:right;">
+0.0022731
+</td>
+<td style="text-align:right;">
+4.9350169
+</td>
+<td style="text-align:right;">
+0.0495797
+</td>
+<td style="text-align:left;">
+8-2
+</td>
+<td style="text-align:left;">
+SCORE EXPO
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.739169
+</td>
+<td style="text-align:right;">
+0.2802997
+</td>
+<td style="text-align:right;">
+5.1980380
+</td>
+<td style="text-align:right;">
+0.0162625
+</td>
+<td style="text-align:left;">
+6-4
+</td>
+<td style="text-align:left;">
+SCORE EXPO
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.703779
+</td>
+<td style="text-align:right;">
+0.4672229
+</td>
+<td style="text-align:right;">
+4.9403344
+</td>
+<td style="text-align:right;">
+0.0056880
+</td>
+<td style="text-align:left;">
+8-4
+</td>
+<td style="text-align:left;">
+SCORE EXPO
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1.856663
+</td>
+<td style="text-align:right;">
+0.4178809
+</td>
+<td style="text-align:right;">
+3.2954449
+</td>
+<td style="text-align:right;">
+0.0021335
+</td>
+<td style="text-align:left;">
+8-2
+</td>
+<td style="text-align:left;">
+Fréquence consultation
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1.829972
+</td>
+<td style="text-align:right;">
+0.7008709
+</td>
+<td style="text-align:right;">
+2.9590724
+</td>
+<td style="text-align:right;">
+0.0000205
+</td>
+<td style="text-align:left;">
+8-3
+</td>
+<td style="text-align:left;">
+Fréquence consultation
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.057018
+</td>
+<td style="text-align:right;">
+0.7523010
+</td>
+<td style="text-align:right;">
+3.3617340
+</td>
+<td style="text-align:right;">
+0.0000404
+</td>
+<td style="text-align:left;">
+8-4
+</td>
+<td style="text-align:left;">
+Fréquence consultation
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.029240
+</td>
+<td style="text-align:right;">
+0.8567299
+</td>
+<td style="text-align:right;">
+3.2017496
+</td>
+<td style="text-align:right;">
+0.0000035
+</td>
+<td style="text-align:left;">
+8-5
+</td>
+<td style="text-align:left;">
+Fréquence consultation
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.862573
+</td>
+<td style="text-align:right;">
+0.9754848
+</td>
+<td style="text-align:right;">
+4.7496614
+</td>
+<td style="text-align:right;">
+0.0000985
+</td>
+<td style="text-align:left;">
+8-7
+</td>
+<td style="text-align:left;">
+Fréquence consultation
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+-2.217245
+</td>
+<td style="text-align:right;">
+-4.1777584
+</td>
+<td style="text-align:right;">
+-0.2567321
+</td>
+<td style="text-align:right;">
+0.0135809
+</td>
+<td style="text-align:left;">
+8-2
+</td>
+<td style="text-align:left;">
+Ancienneté Strava
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+-1.695714
+</td>
+<td style="text-align:right;">
+-3.2342491
+</td>
+<td style="text-align:right;">
+-0.1571785
+</td>
+<td style="text-align:right;">
+0.0184065
+</td>
+<td style="text-align:left;">
+8-3
+</td>
+<td style="text-align:left;">
+Ancienneté Strava
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+-2.578947
+</td>
+<td style="text-align:right;">
+-5.1503317
+</td>
+<td style="text-align:right;">
+-0.0075630
+</td>
+<td style="text-align:right;">
+0.0486691
+</td>
+<td style="text-align:left;">
+8-7
+</td>
+<td style="text-align:left;">
+Ancienneté Strava
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="visualisation-graphique-3" class="section level4">
+<h4>Visualisation graphique</h4>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/visualisation%20test%20post%20hoc-1.png" width="672" /></p>
+</div>
+<div id="khi²-et-cramer-1" class="section level4">
+<h4>Khi² et Cramer</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:right;">
+Khi2_indépendance
+</th>
+<th style="text-align:left;">
+P.value
+</th>
+<th style="text-align:right;">
+Coefficient_Cramer
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Lien catégorie d’abonnement et CSP
+</td>
+<td style="text-align:right;">
+17.71
+</td>
+<td style="text-align:left;">
+sup. 0.001
+</td>
+<td style="text-align:right;">
+0.15
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="caractéristiques-sportives" class="section level1">
+<h1>Caractéristiques sportives</h1>
+<div id="ancienneté-et-niveau" class="section level3 tabset">
+<h3 class="tabset">Ancienneté et niveau</h3>
+<div id="répartition-de-lancienneté" class="section level4">
+<h4>Répartition de l’ancienneté</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">10.17383</td>
+<td align="right">8</td>
+<td align="right">9.18308</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20anciennete-1.png" width="672" /></p>
+</div>
+<div id="répartition-de-lancienneté-par-sexe" class="section level4">
+<h4>Répartition de l’ancienneté par sexe</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Sexe</th>
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Femme</td>
+<td align="right">9.581159</td>
+<td align="right">8.0</td>
+<td align="right">8.329205</td>
+</tr>
+<tr class="even">
+<td align="left">Homme</td>
+<td align="right">10.685000</td>
+<td align="right">7.5</td>
+<td align="right">9.842088</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20anciennete%20en%20fonction%20du%20sexe-1.png" width="672" /></p>
+</div>
+<div id="niveau-de-course-à-pied" class="section level4">
+<h4>Niveau de course à pied</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+<th align="right">Khi2_ajustement</th>
+<th align="left">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2.461745</td>
+<td align="right">2</td>
+<td align="right">0.6791437</td>
+<td align="right">139.3969</td>
+<td align="left">&gt;0.001</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20niveau%20de%20cap-1.png" width="672" /></p>
+</div>
+<div id="niveau-de-course-à-pied-par-sexe" class="section level4">
+<h4>Niveau de course à pied par sexe</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Sexe</th>
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Femme</td>
+<td align="right">2.249275</td>
+<td align="right">2</td>
+<td align="right">0.6207701</td>
+</tr>
+<tr class="even">
+<td align="left">Homme</td>
+<td align="right">2.645000</td>
+<td align="right">3</td>
+<td align="right">0.6746205</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20niveau%20cap%20par%20sexe-1.png" width="672" /></p>
+</div>
+</div>
+<div id="entraînement" class="section level3 tabset">
+<h3 class="tabset">Entraînement</h3>
+<div id="fréquence-dentraînement" class="section level4">
+<h4>Fréquence d’entraînement</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">3.372312</td>
+<td align="right">3</td>
+<td align="right">1.288666</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20frequence%20entrainement-1.png" width="672" /></p>
+</div>
+<div id="fréquence-dentraînement-par-sexe" class="section level4">
+<h4>Fréquence d’entraînement par sexe</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Sexe</th>
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Femme</td>
+<td align="right">2.976812</td>
+<td align="right">3</td>
+<td align="right">1.017027</td>
+</tr>
+<tr class="even">
+<td align="left">Homme</td>
+<td align="right">3.714286</td>
+<td align="right">3</td>
+<td align="right">1.397619</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20frequence%20entrainement%20par%20sexe-1.png" width="672" /></p>
+</div>
+<div id="volume-dentraînement" class="section level4">
+<h4>Volume d’entraînement</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">39.14266</td>
+<td align="right">35</td>
+<td align="right">20.14104</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20volume%20entrainement-1.png" width="672" /></p>
+</div>
+<div id="volume-dentraînement-par-sexe" class="section level4">
+<h4>Volume d’entraînement par sexe</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Sexe</th>
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Femme</td>
+<td align="right">31.77843</td>
+<td align="right">30</td>
+<td align="right">15.49431</td>
+</tr>
+<tr class="even">
+<td align="left">Homme</td>
+<td align="right">45.45750</td>
+<td align="right">40</td>
+<td align="right">21.49449</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20volume%20entrainement%20par%20sexe-1.png" width="672" /></p>
+</div>
+<div id="volume-et-fréquence" class="section level4">
+<h4>Volume et fréquence</h4>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/heatmap%20volume%20et%20frequence-1.png" width="672" /></p>
+</div>
+</div>
+<div id="compétitions" class="section level3 tabset">
+<h3 class="tabset">Compétitions</h3>
+<div id="nombre-de-compétitions-par-an" class="section level4">
+<h4>Nombre de compétitions par an</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">4.40457</td>
+<td align="right">3</td>
+<td align="right">3.888282</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20nb%20competitions-1.png" width="672" /></p>
+</div>
+<div id="nombre-de-compétitions-par-an-par-sexe" class="section level4">
+<h4>Nombre de compétitions par an par sexe</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Sexe</th>
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Femme</td>
+<td align="right">4.261628</td>
+<td align="right">3</td>
+<td align="right">4.034275</td>
+</tr>
+<tr class="even">
+<td align="left">Homme</td>
+<td align="right">4.527500</td>
+<td align="right">4</td>
+<td align="right">3.758932</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20nb%20competition%20par%20sexe-1.png" width="672" /></p>
+</div>
+<div id="objectif-2025" class="section level4">
+<h4>Objectif 2025</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="right">Khi2_ajustement</th>
+<th align="left">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Objectif</td>
+<td align="right">77.43329</td>
+<td align="left">&gt;0.001</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20objectif%202025-1.png" width="672" /></p>
+</div>
+<div id="type-objectif-2025" class="section level4">
+<h4>Type objectif 2025</h4>
+<pre><code>## Le nombre d&#39;individus considérés 643.</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="right">Khi2_ajustement</th>
+<th align="left">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Objectif</td>
+<td align="right">155.6644</td>
+<td align="left">&lt;0.001</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20type%20objectif%202025-1.png" width="672" /></p>
+</div>
+</div>
+<div id="caractéristiques-de-la-pratique" class="section level3 tabset">
+<h3 class="tabset">Caractéristiques de la pratique</h3>
+<div id="lieu-de-pratique" class="section level4">
+<h4>Lieu de pratique</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="right">Khi2_ajustement</th>
+<th align="left">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Lieu</td>
+<td align="right">102.2535</td>
+<td align="left">&gt;0.001</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20trail%20ou%20route-1.png" width="672" /></p>
+</div>
+<div id="club" class="section level4">
+<h4>Club</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="right">Khi2_ajustement</th>
+<th align="left">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Club</td>
+<td align="right">112.8273</td>
+<td align="left">&gt;0.001</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20club%20pratique-1.png" width="672" /></p>
+</div>
+<div id="mode" class="section level4">
+<h4>Mode</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="right">Khi2_ajustement</th>
+<th align="left">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Mode</td>
+<td align="right">109.3456</td>
+<td align="left">&gt;0.001</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20seul%20ou%20groupe-1.png" width="672" /></p>
+</div>
+<div id="type-coureur" class="section level4">
+<h4>Type coureur</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Khi2_ajustement</th>
+<th align="left">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">435.4671</td>
+<td align="left">&lt;0.001</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20type%20de%20coureur-1.png" width="672" /></p>
+</div>
+<div id="coach" class="section level4">
+<h4>Coach</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="right">Khi2_ajustement</th>
+<th align="left">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Coach</td>
+<td align="right">66.60448</td>
+<td align="left">&gt;0.001</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20coach-1.png" width="672" /></p>
+</div>
+<div id="programme-dentraînement" class="section level4">
+<h4>Programme d’entraînement</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="right">Khi2_ajustement</th>
+<th align="left">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Programme</td>
+<td align="right">93.10055</td>
+<td align="left">&gt;0.001</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20pgrm%20entrainement-1.png" width="672" /></p>
+</div>
+</div>
+<div id="blessure" class="section level3 tabset">
+<h3 class="tabset">Blessure</h3>
+<div id="blessure-1" class="section level4">
+<h4>Blessure</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="right">Khi2_ajustement</th>
+<th align="left">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Blessure</td>
+<td align="right">101.1741</td>
+<td align="left">&gt;0.001</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20blessure-1.png" width="672" /></p>
+</div>
+<div id="pause" class="section level4">
+<h4>Pause</h4>
+<pre><code>## Le nombre d&#39;individus considérés 255.</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="right">Khi2_ajustement</th>
+<th align="left">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Pause blessure</td>
+<td align="right">995.6644</td>
+<td align="left">&lt;0.001</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20pause-1.png" width="672" /></p>
+</div>
+</div>
+</div>
+<div id="lien-utilisation-de-strava---caractéristiques-sportives"
+class="section level1">
+<h1>Lien utilisation de Strava - caractéristiques sportives</h1>
+<p>Il s’agit de savoir s’il y a un lien entre l’utilisation de Strava et
+les caractéristiques sportives.</p>
+<div id="une-première-approche" class="section level3 tabset">
+<h3 class="tabset">Une première approche</h3>
+<div id="influence-de-strava" class="section level4">
+<h4>Influence de Strava</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2.132886</td>
+<td align="right">2</td>
+<td align="right">0.9403187</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/influence%20de%20strava-1.png" width="672" /></p>
+</div>
+<div id="performance" class="section level4">
+<h4>Performance</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2.132886</td>
+<td align="right">2</td>
+<td align="right">0.9403187</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/performance-1.png" width="672" /></p>
+</div>
+<div id="fréquence" class="section level4">
+<h4>Fréquence</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2.09396</td>
+<td align="right">2</td>
+<td align="right">1.022215</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/frequence-1.png" width="672" /></p>
+</div>
+<div id="kilomètres" class="section level4">
+<h4>Kilomètres</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2.045638</td>
+<td align="right">2</td>
+<td align="right">1.010994</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/km%20strava-1.png" width="672" /></p>
+</div>
+<div id="compétitions-1" class="section level4">
+<h4>Compétitions</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1.558389</td>
+<td align="right">1</td>
+<td align="right">0.8688997</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/comp%C3%A9titions%20strava-1.png" width="672" /></p>
+</div>
+<div id="ignorance-blessure" class="section level4">
+<h4>Ignorance blessure</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1.347651</td>
+<td align="right">1</td>
+<td align="right">0.6464943</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graph%20blessure%20Strava-1.png" width="672" /></p>
+</div>
+<div id="ajout-entraînement" class="section level4">
+<h4>Ajout entraînement</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1.695302</td>
+<td align="right">1</td>
+<td align="right">0.8993976</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graph%20ajout%20entrainement%20Strava-1.png" width="672" /></p>
+</div>
+<div id="changement-entraînement" class="section level4">
+<h4>Changement entraînement</h4>
+<pre><code>## Le nombre d&#39;individus considérés 438.</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="left">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">NA</td>
+<td align="left">1</td>
+<td align="right">0.4294288</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graph%20change%20entrainement%20Strava-1.png" width="672" /></p>
+</div>
+<div id="changement-programme" class="section level4">
+<h4>Changement programme</h4>
+<pre><code>## Le nombre d&#39;individus considérés 438.</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="left">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">NA</td>
+<td align="left">1</td>
+<td align="right">0.4123168</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graph%20change%20programme%20Strava-1.png" width="672" /></p>
+</div>
+</div>
+<div id="statistiques" class="section level3 tabset">
+<h3 class="tabset">Statistiques</h3>
+<p>Les scores SIS, OSF et EXPO présentent des corrélations très faibles
+ou inexistantes avec la fréquence d’entraînement, le nombre de
+kilomètres parcourus et le nombre de compétitions par an. Il en va de
+même pour les clubs Strava et la fréquence de consultation.</p>
+<pre><code>## Rappel : l&#39;alpha de Cronbach sur le SIS est 0.763630836835257, sur le score OSF est 0.601301166919539 et sur le score EXPO 0.78033975325236.</code></pre>
+<p>Le nombre de kudos reçus est faiblement corrélé au nombre
+d’entraînements par semaine et modérément corrélé au nombre de
+kilomètres parcourus.</p>
+<p>La fréquence de publication présente une corrélation élevée avec
+l’entraînement et les kilomètres parcourus, ce qui est intuitif : plus
+on court, plus on publie.</p>
+<p>Le nombre d’abonnés et d’abonnements est modérément corrélé avec
+l’entraînement et les kilomètres parcourus : plus on a de relations sur
+Strava, plus on court fréquemment et sur de plus longues distances.</p>
+<p>L’ancienneté sur Strava ne semble pas avoir d’impact notable sur ces
+comportements.</p>
+<p>Enfin, les corrélations avec le nombre de compétitions par an restent
+faibles, ce qui indique que l’utilisation de Strava influence peu la
+participation aux compétitions.</p>
+<p>Par ailleurs, il semble existe un lien faible entre la catégorie
+d’abonnement (gratuit ou payant) et les types d’objectifs (20K, 50K,
+100K ou 100M) en 2025.</p>
+<p>Enfin, les utilisations qui ont un compte payant ont un nombre
+d’entraînements par semaine et un nombre de kilomètres par semaine
+significativement plus élévés que les utilisateurs qui ont un compte
+gratuit.</p>
+<div id="corrélations-1" class="section level4">
+<h4>Corrélations</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:left;">
+Fréquence_pratique
+</th>
+<th style="text-align:left;">
+Volume
+</th>
+<th style="text-align:left;">
+Compétitions
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+SCORE SIS
+</td>
+<td style="text-align:left;">
+0.08
+</td>
+<td style="text-align:left;">
+0.03
+</td>
+<td style="text-align:left;">
+0.18
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SCORE OSF
+</td>
+<td style="text-align:left;">
+0.03
+</td>
+<td style="text-align:left;">
+0.02
+</td>
+<td style="text-align:left;">
+0.19
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SCORE EXPO
+</td>
+<td style="text-align:left;">
+0.12
+</td>
+<td style="text-align:left;">
+0.13
+</td>
+<td style="text-align:left;">
+0.18
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Clubs Strava
+</td>
+<td style="text-align:left;">
+0.2
+</td>
+<td style="text-align:left;">
+0.2
+</td>
+<td style="text-align:left;">
+0.16
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Kudos reçus
+</td>
+<td style="text-align:left;">
+<span style="color:red;">0.28</span>
+</td>
+<td style="text-align:left;">
+<span style="color:#FC4C02;">0.32</span>
+</td>
+<td style="text-align:left;">
+<span style="color:red;">0.26</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fréquence publication
+</td>
+<td style="text-align:left;">
+<span style="color:green;">0.61</span>
+</td>
+<td style="text-align:left;">
+<span style="color:green;">0.56</span>
+</td>
+<td style="text-align:left;">
+<span style="color:red;">0.21</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fréquence consultation
+</td>
+<td style="text-align:left;">
+<span style="color:red;">0.24</span>
+</td>
+<td style="text-align:left;">
+0.17
+</td>
+<td style="text-align:left;">
+0.15
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Nombre d’abonnés
+</td>
+<td style="text-align:left;">
+<span style="color:#FC4C02;">0.36</span>
+</td>
+<td style="text-align:left;">
+<span style="color:#FC4C02;">0.38</span>
+</td>
+<td style="text-align:left;">
+0.18
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Nombre d’abonnements
+</td>
+<td style="text-align:left;">
+<span style="color:#FC4C02;">0.31</span>
+</td>
+<td style="text-align:left;">
+<span style="color:#FC4C02;">0.35</span>
+</td>
+<td style="text-align:left;">
+<span style="color:red;">0.21</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ancienneté Strava
+</td>
+<td style="text-align:left;">
+0.09
+</td>
+<td style="text-align:left;">
+0.16
+</td>
+<td style="text-align:left;">
+-0.04
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="visualisation-graphique-4" class="section level4 tabset">
+<h4 class="tabset">Visualisation graphique</h4>
+<div id="kudos---kilomètres-par-semaine" class="section level5">
+<h5>Kudos - Kilomètres par semaine</h5>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20kudo%20kms%20par%20semaine-1.png" width="672" /></p>
+</div>
+<div id="fréquence-de-publication---kilomètres-par-semaine"
+class="section level5">
+<h5>Fréquence de publication - Kilomètres par semaine</h5>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20freq%20publi%20kms%20par%20semaine-1.png" width="672" /></p>
+</div>
+<div id="fréquence-de-publication---fréquence-dentraînement"
+class="section level5">
+<h5>Fréquence de publication - Fréquence d’entraînement</h5>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20freq%20publi%20freq%20entrainement%20par%20semaine-1.png" width="672" /></p>
+</div>
+<div id="nombre-dabonnés---fréquence-dentraînement"
+class="section level5">
+<h5>Nombre d’abonnés - Fréquence d’entraînement</h5>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20nb%20abonn%C3%A9s%20freq%20entrainement%20par%20semaine-1.png" width="672" /></p>
+</div>
+<div id="nombres-dabonnés---kilomètres-par-semaine"
+class="section level5">
+<h5>Nombres d’abonnés - Kilomètres par semaine</h5>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20nb%20abonn%C3%A9s%20kms%20par%20semaine-1.png" width="672" /></p>
+</div>
+<div id="nombre-dabonnements---fréquence-dentraînement"
+class="section level5">
+<h5>Nombre d’abonnements - Fréquence d’entraînement</h5>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20nb%20abonnements%20freq%20entrainement%20par%20semaine-1.png" width="672" /></p>
+</div>
+<div id="nombres-dabonnements---kilomètres-par-semaine"
+class="section level5">
+<h5>Nombres d’abonnements - Kilomètres par semaine</h5>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20nb%20abonnements%20kms%20par%20semaine-1.png" width="672" /></p>
+</div>
+</div>
+<div id="khi²-et-cramer-2" class="section level4">
+<h4>Khi² et Cramer</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:right;">
+Khi2_indépendance
+</th>
+<th style="text-align:left;">
+P.value
+</th>
+<th style="text-align:right;">
+Coefficient_Cramer
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Lien catégorie abonnement et niveau
+</td>
+<td style="text-align:right;">
+16.56
+</td>
+<td style="text-align:left;">
+&lt; 0.001
+</td>
+<td style="text-align:right;">
+0.15
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lien catégorie abonnement et type coureur
+</td>
+<td style="text-align:right;">
+25.27
+</td>
+<td style="text-align:left;">
+&lt; 0.001
+</td>
+<td style="text-align:right;">
+0.18
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lien catégorie abonnement et coach
+</td>
+<td style="text-align:right;">
+2.67
+</td>
+<td style="text-align:left;">
+sup. 0.001
+</td>
+<td style="text-align:right;">
+0.06
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lien catégorie abonnement et programme
+</td>
+<td style="text-align:right;">
+3.58
+</td>
+<td style="text-align:left;">
+sup. 0.001
+</td>
+<td style="text-align:right;">
+0.07
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lien catégorie abonnement et objectif
+</td>
+<td style="text-align:right;">
+37.12
+</td>
+<td style="text-align:left;">
+&lt; 0.001
+</td>
+<td style="text-align:right;">
+0.22
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lien catégorie abonnement et blessure
+</td>
+<td style="text-align:right;">
+2.35
+</td>
+<td style="text-align:left;">
+sup. 0.001
+</td>
+<td style="text-align:right;">
+0.06
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lien catégorie abonnement et pause
+</td>
+<td style="text-align:right;">
+7.60
+</td>
+<td style="text-align:left;">
+sup. 0.001
+</td>
+<td style="text-align:right;">
+0.10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="visualisation-graphique-5" class="section level4 tabset">
+<h4 class="tabset">Visualisation graphique</h4>
+<div id="niveau-et-catégorie-dabonnement" class="section level5">
+<h5>Niveau et catégorie d’abonnement</h5>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Type_abonnement
+</th>
+<th style="text-align:left;">
+Niveau
+</th>
+<th style="text-align:right;">
+Observé
+</th>
+<th style="text-align:right;">
+Attendu
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Gratuit
+</td>
+<td style="text-align:left;">
+Débutant
+</td>
+<td style="text-align:right;">
+32
+</td>
+<td style="text-align:right;">
+27.17315
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Payant
+</td>
+<td style="text-align:left;">
+Débutant
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+14.82685
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Gratuit
+</td>
+<td style="text-align:left;">
+Intermédiaire
+</td>
+<td style="text-align:right;">
+248
+</td>
+<td style="text-align:right;">
+229.03087
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Payant
+</td>
+<td style="text-align:left;">
+Intermédiaire
+</td>
+<td style="text-align:right;">
+106
+</td>
+<td style="text-align:right;">
+124.96913
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Gratuit
+</td>
+<td style="text-align:left;">
+Confirmé
+</td>
+<td style="text-align:right;">
+185
+</td>
+<td style="text-align:right;">
+201.85772
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Payant
+</td>
+<td style="text-align:left;">
+Confirmé
+</td>
+<td style="text-align:right;">
+127
+</td>
+<td style="text-align:right;">
+110.14228
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Gratuit
+</td>
+<td style="text-align:left;">
+Expert
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+23.93826
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Payant
+</td>
+<td style="text-align:left;">
+Expert
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+13.06175
+</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/heatmap%20niveau%20et%20categorie%20abonnement-1.png" width="672" /></p>
+</div>
+<div id="type-de-coureur-et-catégorie-dabonnement"
+class="section level5">
+<h5>Type de coureur et catégorie d’abonnement</h5>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Type_abonnement
+</th>
+<th style="text-align:left;">
+Type_coureur
+</th>
+<th style="text-align:right;">
+Observé
+</th>
+<th style="text-align:right;">
+Attendu
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Gratuit
+</td>
+<td style="text-align:left;">
+Route, club, seul
+</td>
+<td style="text-align:right;">
+32
+</td>
+<td style="text-align:right;">
+28.467114
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Payant
+</td>
+<td style="text-align:left;">
+Route, club, seul
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+15.532886
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Gratuit
+</td>
+<td style="text-align:left;">
+Route, club, en groupe
+</td>
+<td style="text-align:right;">
+25
+</td>
+<td style="text-align:right;">
+20.703356
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Payant
+</td>
+<td style="text-align:left;">
+Route, club, en groupe
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+11.296644
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Gratuit
+</td>
+<td style="text-align:left;">
+Route, pas de club, seul
+</td>
+<td style="text-align:right;">
+113
+</td>
+<td style="text-align:right;">
+110.633557
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Payant
+</td>
+<td style="text-align:left;">
+Route, pas de club, seul
+</td>
+<td style="text-align:right;">
+58
+</td>
+<td style="text-align:right;">
+60.366443
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Gratuit
+</td>
+<td style="text-align:left;">
+Route, pas de club, en groupe
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+7.763758
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Payant
+</td>
+<td style="text-align:left;">
+Route, pas de club, en groupe
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+4.236242
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Gratuit
+</td>
+<td style="text-align:left;">
+Trail, club, seul
+</td>
+<td style="text-align:right;">
+75
+</td>
+<td style="text-align:right;">
+82.813423
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Payant
+</td>
+<td style="text-align:left;">
+Trail, club, seul
+</td>
+<td style="text-align:right;">
+53
+</td>
+<td style="text-align:right;">
+45.186577
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Gratuit
+</td>
+<td style="text-align:left;">
+Trail, club, en groupe
+</td>
+<td style="text-align:right;">
+75
+</td>
+<td style="text-align:right;">
+64.051007
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Payant
+</td>
+<td style="text-align:left;">
+Trail, club, en groupe
+</td>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:right;">
+34.948993
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Gratuit
+</td>
+<td style="text-align:left;">
+Tail, pas de club, seul
+</td>
+<td style="text-align:right;">
+124
+</td>
+<td style="text-align:right;">
+144.923490
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Payant
+</td>
+<td style="text-align:left;">
+Tail, pas de club, seul
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+79.076510
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Gratuit
+</td>
+<td style="text-align:left;">
+Trail, pas de club, en groupe
+</td>
+<td style="text-align:right;">
+28
+</td>
+<td style="text-align:right;">
+22.644295
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Payant
+</td>
+<td style="text-align:left;">
+Trail, pas de club, en groupe
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+12.355705
+</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/type%20abonnement%20type%20coureur-1.png" width="672" /></p>
+</div>
+<div id="objectif-et-catégorie-dabonnement" class="section level5">
+<h5>Objectif et catégorie d’abonnement</h5>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Type_abonnement
+</th>
+<th style="text-align:left;">
+Objectif_KM
+</th>
+<th style="text-align:right;">
+Observé
+</th>
+<th style="text-align:right;">
+Attendu
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Gratuit
+</td>
+<td style="text-align:left;">
+Pas d’objectif
+</td>
+<td style="text-align:right;">
+78
+</td>
+<td style="text-align:right;">
+60.16913
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Payant
+</td>
+<td style="text-align:left;">
+Pas d’objectif
+</td>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:right;">
+32.83087
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Gratuit
+</td>
+<td style="text-align:left;">
+20 K
+</td>
+<td style="text-align:right;">
+129
+</td>
+<td style="text-align:right;">
+114.51544
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Payant
+</td>
+<td style="text-align:left;">
+20 K
+</td>
+<td style="text-align:right;">
+48
+</td>
+<td style="text-align:right;">
+62.48456
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Gratuit
+</td>
+<td style="text-align:left;">
+50 K
+</td>
+<td style="text-align:right;">
+166
+</td>
+<td style="text-align:right;">
+172.09664
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Payant
+</td>
+<td style="text-align:left;">
+50 K
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+93.90336
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Gratuit
+</td>
+<td style="text-align:left;">
+100 K
+</td>
+<td style="text-align:right;">
+74
+</td>
+<td style="text-align:right;">
+86.04832
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Payant
+</td>
+<td style="text-align:left;">
+100 K
+</td>
+<td style="text-align:right;">
+59
+</td>
+<td style="text-align:right;">
+46.95168
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Gratuit
+</td>
+<td style="text-align:left;">
+100 M
+</td>
+<td style="text-align:right;">
+35
+</td>
+<td style="text-align:right;">
+49.17047
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Payant
+</td>
+<td style="text-align:left;">
+100 M
+</td>
+<td style="text-align:right;">
+41
+</td>
+<td style="text-align:right;">
+26.82953
+</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/heatmap%20objectif%20et%20cat%C3%A9gorie%20abonnement-1.png" width="672" /></p>
+</div>
+</div>
+<div id="test-t-de-student-2" class="section level4">
+<h4>Test t de Student</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:right;">
+Student
+</th>
+<th style="text-align:left;">
+p_value
+</th>
+<th style="text-align:right;">
+Gratuit
+</th>
+<th style="text-align:right;">
+Payant
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Type d’abonnement et entrainement par semaine
+</td>
+<td style="text-align:right;">
+-7.202226
+</td>
+<td style="text-align:left;">
+&lt;0.001
+</td>
+<td style="text-align:right;">
+3.128898
+</td>
+<td style="text-align:right;">
+3.817490
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Type d’abonnement et kilomètres par semaine
+</td>
+<td style="text-align:right;">
+-5.761883
+</td>
+<td style="text-align:left;">
+&lt;0.001
+</td>
+<td style="text-align:right;">
+36.066528
+</td>
+<td style="text-align:right;">
+44.790076
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Type d’abonnement et nombre de compétitions
+</td>
+<td style="text-align:right;">
+-2.785636
+</td>
+<td style="text-align:left;">
+sup. 0.001
+</td>
+<td style="text-align:right;">
+4.112266
+</td>
+<td style="text-align:right;">
+4.939164
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="visualisation-graphique-6" class="section level4">
+<h4>Visualisation graphique</h4>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+</div>
+</div>
+<div id="mesure-de-lauto-présentation" class="section level1">
+<h1>Mesure de l’auto-présentation</h1>
+<p>La présentation de soi est la tentative d’un individu de contrôler la
+façon dont les autres le perçoivent <sup>3</sup>. Dans l’article de
+Russell, il y a des témoignanges sur le contrôle : « Si c’est une course
+très lente, je ne la mettrais peut-être pas sur Strava.», « Je n’aime
+pas poster des courses qui ne font pas au moins 3 miles, parce que c’est
+un peu comme une course de mauviette, comme si vous ne terminiez pas au
+moins un 5K, pour moi, ce n’est pas une bonne journée. Vous devriez au
+moins être capable de faire un 5 km. Parce que je ne veux pas que mes
+followers se demandent pourquoi elle est si lente », « Parfois, je cours
+un ou deux kilomètres de plus, juste parce que ça a l’air mieux sur
+Strava. ». <sup>3</sup></p>
+<p>Mais il y a également des témoignages qui se rapproche plus d’une
+présentation authentique : « Et donc je suppose que je me sens comme…
+plus capable d’être honnête et moi-même sur Strava et c’est moins une
+question de photos et d’image et plus une question de ma propre course
+», « Même si la course n’a pas été géniale, je dirai à l’avance que j’ai
+eu des difficultés mentales aujourd’hui… J’ai l’impression d’être très
+ouvert sur Strava en ce qui concerne les bons et les mauvais jours.»
+<sup>3</sup></p>
+<p>Le Self-presentation and Upward Social Comparison Inclination Scale
+mesure l’auto-présentation sur les réseaux sociaux. <sup>10</sup>
+<sup>17</sup> L’échelle comporte initialement 7 items qui ont été
+traduits et adaptés à l’étude. Le SPAUSCIS mesure le degré de
+focalisation sur l’auto-présentation et la comparaison sociale
+ascendante sur les réseaux sociaux. Il évalue plusieurs aspects du
+comportement des adolescents sur les réseaux sociaux, notamment la
+recherche de feedback, l’auto-présentation “améliorée” et la comparaison
+sociale avec des personnes perçues commet “meilleures”. Il est à noter
+que cette échelle a été utilisée auprès d’adolescent. Dans l’étude de
+Hjetland <sup>17</sup>, l’alpha est de 0.87.</p>
+<p>Suite au pré-test, un item a été enlevé dans l’étude sur Strava (“It
+is important to me that my posts receive many likes and/or comments”).
+L’échelle traduite et adaptée comporte donc <strong>6
+items</strong>.</p>
+<p>Un score bas au SPAUSCIS indique que l’utilisateur accorde peu
+d’importance à son image sur Strava (ne recherche pas activement du
+feedback, pas de stratégie d’auto-présentation, pas de comparaison aux
+utilisateurs perçus comme “meilleurs”) tandis qu’un score haut indique
+que l’utilisateur accorde beaucoup d’importance à son image sur Srava
+(recherche active de feedback, stratégie d’auto-présentation,
+comparaison aux autres).</p>
+<p>Les scores obtenus sur l’échantillon sont bas.</p>
+<div id="spauscis" class="section level3 tabset">
+<h3 class="tabset">SPAUSCIS</h3>
+<pre><code>## L&#39;alpha de Cronbach sur les 6 items est de 0.544747605721729</code></pre>
+<p>L’alpha de Cronbach est assez faible, cela peut s’expliquer par le
+fait que c’est une traduction et adaptation dans le cadre de cette étude
+du questionnaire d’origine mais également par le fait que ce
+questionnaire était destiné plutôt à des publics adolescents.</p>
+<div id="spauscis-1" class="section level4">
+<h4>SPAUSCIS 1</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1.463087</td>
+<td align="right">1</td>
+<td align="right">0.685129</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/SPAUSCIS%201-1.png" width="672" /></p>
+</div>
+<div id="spauscis-2" class="section level4">
+<h4>SPAUSCIS 2</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1.30604</td>
+<td align="right">1</td>
+<td align="right">0.5465223</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/SPAUSCIS%202-1.png" width="672" /></p>
+</div>
+<div id="spauscis-3" class="section level4">
+<h4>SPAUSCIS 3</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1.013423</td>
+<td align="right">1</td>
+<td align="right">0.1365166</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/SPAUSCIS%203-1.png" width="672" /></p>
+</div>
+<div id="spauscis-4" class="section level4">
+<h4>SPAUSCIS 4</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1.10604</td>
+<td align="right">1</td>
+<td align="right">0.3925085</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/SPAUSCIS%204-1.png" width="672" /></p>
+</div>
+<div id="spauscis-5" class="section level4">
+<h4>SPAUSCIS 5</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1.381208</td>
+<td align="right">1</td>
+<td align="right">0.6953541</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/SPAUSCIS%205-1.png" width="672" /></p>
+</div>
+<div id="spauscis-6" class="section level4">
+<h4>SPAUSCIS 6</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1.30604</td>
+<td align="right">1</td>
+<td align="right">0.5465223</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/SPAUSCIS%206-1.png" width="672" /></p>
+</div>
+<div id="score-spauscis" class="section level4">
+<h4>SCORE SPAUSCIS</h4>
+<table>
+<colgroup>
+<col width="22%" />
+<col width="13%" />
+<col width="13%" />
+<col width="16%" />
+<col width="23%" />
+<col width="11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Item</th>
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+<th align="right">chi2_ajustement</th>
+<th align="left">P.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">SPAUSCIS1</td>
+<td align="right">1.463087</td>
+<td align="right">1.000000</td>
+<td align="right">0.6851290</td>
+<td align="right">706.0013</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="even">
+<td align="left">SPAUSCIS2</td>
+<td align="right">1.306040</td>
+<td align="right">1.000000</td>
+<td align="right">0.5465223</td>
+<td align="right">1019.2040</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="odd">
+<td align="left">SPAUSCIS3</td>
+<td align="right">1.013423</td>
+<td align="right">1.000000</td>
+<td align="right">0.1365166</td>
+<td align="right">1442.4188</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="even">
+<td align="left">SPAUSCIS4</td>
+<td align="right">1.106040</td>
+<td align="right">1.000000</td>
+<td align="right">0.3925085</td>
+<td align="right">1773.4591</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="odd">
+<td align="left">SPAUSCIS5</td>
+<td align="right">1.381208</td>
+<td align="right">1.000000</td>
+<td align="right">0.6953541</td>
+<td align="right">937.5826</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="even">
+<td align="left">SPAUSCIS6</td>
+<td align="right">1.526174</td>
+<td align="right">1.000000</td>
+<td align="right">0.7635335</td>
+<td align="right">630.4577</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="odd">
+<td align="left">SCORE_SPAUSCIS</td>
+<td align="right">1.299329</td>
+<td align="right">1.166667</td>
+<td align="right">0.3195509</td>
+<td align="right">1295.0443</td>
+<td align="left">&lt;0.001</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20score%20SPAUSCIS-1.png" width="672" /></p>
+</div>
+</div>
+</div>
+<div id="lien-utilisation-de-strava---spauscis" class="section level1">
+<h1>Lien utilisation de Strava - SPAUSCIS</h1>
+<p>Il s’agit de savoir s’il y a un lien entre l’utilisation de Strava et
+le score SPAUSCIS.</p>
+<p>Le score SIS et le score OSF sont modérément corrélés au score
+SPAUSCIS.</p>
+<p>Le score EXPO, le nombre de clubs Strava, les kudos reçus en moyenne
+par activité, la fréquence de consultation, le nombre d’abonnés et le
+nombre d’abonnements sont faiblement corrélés au score SPAUSCIS.</p>
+<p>Il n’est pas possible de rejeter H0 pour le lien entre le score
+SPAUSCIS et la catégorie d’abonnement (gratuit/payant).</p>
+<div id="statistiques-1" class="section level3 tabset">
+<h3 class="tabset">Statistiques</h3>
+<div id="corrélations-2" class="section level4">
+<h4>Corrélations</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:left;">
+SPAUSCIS
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+SCORE SIS
+</td>
+<td style="text-align:left;">
+<span style="color:green;">0.43</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SCORE OSF
+</td>
+<td style="text-align:left;">
+<span style="color:red;">0.3</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SCORE EXPO
+</td>
+<td style="text-align:left;">
+<span style="color:red;">0.23</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Clubs Strava
+</td>
+<td style="text-align:left;">
+0.15
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Kudos reçus
+</td>
+<td style="text-align:left;">
+0.19
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fréquence publication
+</td>
+<td style="text-align:left;">
+0.07
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fréquence consultation
+</td>
+<td style="text-align:left;">
+<span style="color:red;">0.21</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Nombre d’abonnés
+</td>
+<td style="text-align:left;">
+0.16
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Nombre d’abonnements
+</td>
+<td style="text-align:left;">
+0.15
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ancienneté Strava
+</td>
+<td style="text-align:left;">
+0.01
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="visualisation-graphique-7" class="section level4 tabset">
+<h4 class="tabset">Visualisation graphique</h4>
+<div id="sis" class="section level5">
+<h5>SIS</h5>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/sis%20et%20spauscis-1.png" width="672" /></p>
+</div>
+<div id="osf" class="section level5">
+<h5>OSF</h5>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/osf%20et%20spauscis-1.png" width="672" /></p>
+</div>
+</div>
+<div id="test-t-de-student-3" class="section level4">
+<h4>Test t de Student</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:right;">
+Student
+</th>
+<th style="text-align:left;">
+p_value
+</th>
+<th style="text-align:right;">
+Gratuit
+</th>
+<th style="text-align:right;">
+Payant
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Type d’abonnement et SPAUSCIS
+</td>
+<td style="text-align:right;">
+-2.352556
+</td>
+<td style="text-align:left;">
+sup. 0.001
+</td>
+<td style="text-align:right;">
+1.279046
+</td>
+<td style="text-align:right;">
+1.336502
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="lien-présentation-de-soi---caractéristiques-sportives"
+class="section level1">
+<h1>Lien présentation de soi - caractéristiques sportives</h1>
+<p>Il s’agit de savoir s’il y a un lien entre le score SPAUSCIS et les
+caractéristiques sportives.</p>
+<p>Il y a une faible corrélation entre le score SPAUSCIS et le nombre de
+compétitions par an.</p>
+<p>Il n’est pas possible de rejeter H0 pour le lien entre le score
+SPAUSCIS et le fait d’avoir un coach, le fait de suivre un programme
+d’entraînement et le fait d’être blessé.</p>
+<p>Les coureurs qui ont pour objectif un 100 kilomètres en 2025 ont une
+moyenne au score SPAUSCIS significativement plus élévée que ceux qui ont
+un 50 kilomètres pour objectif.</p>
+<div id="statistiques-2" class="section level3 tabset">
+<h3 class="tabset">Statistiques</h3>
+<div id="corrélations-3" class="section level4">
+<h4>Corrélations</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:left;">
+SPAUSCIS
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Fréquence d’entraînement
+</td>
+<td style="text-align:left;">
+-0.09
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Kilomètres par semaine
+</td>
+<td style="text-align:left;">
+-0.09
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Compétitions par an
+</td>
+<td style="text-align:left;">
+0.11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="test-t-de-student-4" class="section level4">
+<h4>Test t de Student</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:right;">
+Student
+</th>
+<th style="text-align:left;">
+p_value
+</th>
+<th style="text-align:right;">
+Avec_coach
+</th>
+<th style="text-align:right;">
+Sans_coach
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Coach et SPAUSCIS
+</td>
+<td style="text-align:right;">
+-0.1140976
+</td>
+<td style="text-align:left;">
+sup. 0.001
+</td>
+<td style="text-align:right;">
+1.296667
+</td>
+<td style="text-align:right;">
+1.3
+</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:right;">
+Student
+</th>
+<th style="text-align:left;">
+p_value
+</th>
+<th style="text-align:right;">
+Avec_programme
+</th>
+<th style="text-align:right;">
+Sans_programme
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Programme et SPAUSCIS
+</td>
+<td style="text-align:right;">
+1.717416
+</td>
+<td style="text-align:left;">
+sup. 0.001
+</td>
+<td style="text-align:right;">
+1.329662
+</td>
+<td style="text-align:right;">
+1.286036
+</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:right;">
+Student
+</th>
+<th style="text-align:left;">
+p_value
+</th>
+<th style="text-align:right;">
+Blessure
+</th>
+<th style="text-align:right;">
+Pas_de_blessure
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Blessure et SPAUSCIS
+</td>
+<td style="text-align:right;">
+0.0010804
+</td>
+<td style="text-align:left;">
+sup. 0.001
+</td>
+<td style="text-align:right;">
+1.299346
+</td>
+<td style="text-align:right;">
+1.29932
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="anova-1" class="section level4">
+<h4>ANOVA</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:right;">
+F_value
+</th>
+<th style="text-align:left;">
+P_value
+</th>
+<th style="text-align:right;">
+Débutant
+</th>
+<th style="text-align:right;">
+Intermédiaire
+</th>
+<th style="text-align:right;">
+Confirmé
+</th>
+<th style="text-align:right;">
+Expert
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Lien score SPAUSCIS et niveau
+</td>
+<td style="text-align:right;">
+0.4572719
+</td>
+<td style="text-align:left;">
+&lt; 0.05
+</td>
+<td style="text-align:right;">
+1.277778
+</td>
+<td style="text-align:right;">
+1.287665
+</td>
+<td style="text-align:right;">
+1.313568
+</td>
+<td style="text-align:right;">
+1.315315
+</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:right;">
+F_value
+</th>
+<th style="text-align:left;">
+P_value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Lien score SPAUSCIS et type coureur
+</td>
+<td style="text-align:right;">
+0.5687244
+</td>
+<td style="text-align:left;">
+&lt; 0.05
+</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Type_coureur</th>
+<th align="right">Moyenne</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Route/Club/Seul</td>
+<td align="right">1.287879</td>
+</tr>
+<tr class="even">
+<td align="left">Route/Pas club/Seul</td>
+<td align="right">1.359375</td>
+</tr>
+<tr class="odd">
+<td align="left">Route/Club/En groupe</td>
+<td align="right">1.303119</td>
+</tr>
+<tr class="even">
+<td align="left">Route/Pas club/En groupe</td>
+<td align="right">1.250000</td>
+</tr>
+<tr class="odd">
+<td align="left">Trail/Club/Seul</td>
+<td align="right">1.329427</td>
+</tr>
+<tr class="even">
+<td align="left">Trail/Pas club/Seul</td>
+<td align="right">1.279461</td>
+</tr>
+<tr class="odd">
+<td align="left">Trail/Club/En groupe</td>
+<td align="right">1.280506</td>
+</tr>
+<tr class="even">
+<td align="left">Trail/Pas club/En groupe</td>
+<td align="right">NA</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:right;">
+F_value
+</th>
+<th style="text-align:left;">
+P_value
+</th>
+<th style="text-align:right;">
+Vingt_km
+</th>
+<th style="text-align:right;">
+Cinquante_km
+</th>
+<th style="text-align:right;">
+Cent_km
+</th>
+<th style="text-align:right;">
+Cent_miles
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Lien score SPAUSCIS et objectif 2025
+</td>
+<td style="text-align:right;">
+2.38064
+</td>
+<td style="text-align:left;">
+&lt; 0.05
+</td>
+<td style="text-align:right;">
+1.286738
+</td>
+<td style="text-align:right;">
+1.30791
+</td>
+<td style="text-align:right;">
+1.337719
+</td>
+<td style="text-align:right;">
+1.243108
+</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:right;">
+F_value
+</th>
+<th style="text-align:left;">
+P_value
+</th>
+<th style="text-align:right;">
+Jours
+</th>
+<th style="text-align:right;">
+Semaines
+</th>
+<th style="text-align:right;">
+Mois
+</th>
+<th style="text-align:right;">
+Pas_de_pause
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Lien score SPAUSCIS et pause blessure
+</td>
+<td style="text-align:right;">
+0.5921406
+</td>
+<td style="text-align:left;">
+&lt; 0.05
+</td>
+<td style="text-align:right;">
+1.311508
+</td>
+<td style="text-align:right;">
+1.322344
+</td>
+<td style="text-align:right;">
+1.276836
+</td>
+<td style="text-align:right;">
+1.214286
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="test-post-hoc" class="section level4">
+<h4>Test post hoc</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+diff
+</th>
+<th style="text-align:right;">
+lwr
+</th>
+<th style="text-align:right;">
+upr
+</th>
+<th style="text-align:right;">
+p adj
+</th>
+<th style="text-align:left;">
+Comparison
+</th>
+<th style="text-align:left;">
+Variable
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+-0.0946115
+</td>
+<td style="text-align:right;">
+-0.1870673
+</td>
+<td style="text-align:right;">
+-0.0021557
+</td>
+<td style="text-align:right;">
+0.0419299
+</td>
+<td style="text-align:left;">
+3-2
+</td>
+<td style="text-align:left;">
+Lien score SPAUSCIS et objectif 2025
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="visualisation-graphique-8" class="section level4">
+<h4>Visualisation graphique</h4>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/visualisation%20test%20post%20hoc%20spauscis-1.png" width="672" /></p>
+</div>
+</div>
+</div>
+<div id="mesure-du-stress-perçu" class="section level1">
+<h1>Mesure du stress perçu</h1>
+<p>Dans l’article de Rusell<sup>3</sup>, il y a des témoignages
+concernant la pression perçue “I think it makes you feel like there’s
+pressure to do as much as other people are doing or as well as other
+people are doing… I had a really bad run or workout oneday, and I see
+others having better runs, then that can make me feel worse.</p>
+<p>Le Perceived Stress Scale mesure le stress perçu et la capacité
+d’adaptation. Les items ont étés traduits et adaptés à partir de l’étude
+de Sischka <sup>11</sup>. L’étude de Chiu <sup>13</sup> recommande
+d’utiliser cette échelle mais en version 2 facteurs : stress perçu et
+capacité d’adaptation.</p>
+<p>Les items 1, 2, 3, 6, 9, 10 de l’échelle mesure le stress perçu et 4,
+5, 7, 8 mesurent la capacité à gérer son stress.</p>
+<p>L’article de Chiu <sup>13</sup> indique un alpha de Cronbach de 0.81
+pour le stress perçu et 0.71 pour la capacité d’adaptation.</p>
+<p>Suite au pré-test, un item a été enlevé dans l’étude sur Strava (“In
+the last week, how often have you felt that you were on top of
+things?”). L’échelle traduite et adaptée comporte donc <strong>9
+items</strong>.</p>
+<p>Un score élevé sur le PSS (facteur stress perçu) indique un stress
+perçu élévé tandis qu’un score faible indique un stress perçu faible. Un
+score élevé sur le PSS (facteur capacité d’adaptation) montre que la
+personne arrive à gérer son stress correctement tandis qu’un score
+faible indique qu’elle a plus de mal. Ainsi, un individu peut avoir un
+haut niveau de stress mais aussi une forte capacité d’adaptation et
+inversement.</p>
+<div id="pss-facteurs-stress-perçu" class="section level3 tabset">
+<h3 class="tabset">PSS Facteurs stress perçu</h3>
+<pre><code>## L&#39;alpha de Cronbach sur les 6 items est de 0.670192093450068</code></pre>
+<div id="pss-1" class="section level4">
+<h4>PSS 1</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1.060403</td>
+<td align="right">1</td>
+<td align="right">0.2701102</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20PSS%201-1.png" width="672" /></p>
+</div>
+<div id="pss-2" class="section level4">
+<h4>PSS 2</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1.174497</td>
+<td align="right">1</td>
+<td align="right">0.5149844</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20PSS%202-1.png" width="672" /></p>
+</div>
+<div id="pss-3" class="section level4">
+<h4>PSS 3</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1.071141</td>
+<td align="right">1</td>
+<td align="right">0.3137304</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20PSS%203-1.png" width="672" /></p>
+</div>
+<div id="pss-6" class="section level4">
+<h4>PSS 6</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1.421477</td>
+<td align="right">1</td>
+<td align="right">0.7510355</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20PSS%206-1.png" width="672" /></p>
+</div>
+<div id="pss-8" class="section level4">
+<h4>PSS 8</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1.163758</td>
+<td align="right">1</td>
+<td align="right">0.4808447</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20PSS%208-1.png" width="672" /></p>
+</div>
+<div id="pss-9" class="section level4">
+<h4>PSS 9</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1.210738</td>
+<td align="right">1</td>
+<td align="right">0.5260858</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20PSS%209-1.png" width="672" /></p>
+</div>
+<div id="score-pss-stress-perçu" class="section level4">
+<h4>SCORE PSS Stress perçu</h4>
+<table>
+<colgroup>
+<col width="24%" />
+<col width="13%" />
+<col width="11%" />
+<col width="15%" />
+<col width="23%" />
+<col width="11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Item</th>
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+<th align="right">chi2_ajustement</th>
+<th align="left">P.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">PSS1</td>
+<td align="right">1.060403</td>
+<td align="right">1</td>
+<td align="right">0.2701102</td>
+<td align="right">1930.6027</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="even">
+<td align="left">PSS2</td>
+<td align="right">1.174497</td>
+<td align="right">1</td>
+<td align="right">0.5149844</td>
+<td align="right">1567.7785</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="odd">
+<td align="left">PSS3</td>
+<td align="right">1.071141</td>
+<td align="right">1</td>
+<td align="right">0.3137304</td>
+<td align="right">1907.7195</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="even">
+<td align="left">PSS6</td>
+<td align="right">1.421477</td>
+<td align="right">1</td>
+<td align="right">0.7510355</td>
+<td align="right">889.7544</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="odd">
+<td align="left">PSS8</td>
+<td align="right">1.163758</td>
+<td align="right">1</td>
+<td align="right">0.4808447</td>
+<td align="right">1576.3799</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="even">
+<td align="left">PSS9</td>
+<td align="right">1.210738</td>
+<td align="right">1</td>
+<td align="right">0.5260858</td>
+<td align="right">1392.8631</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="odd">
+<td align="left">SCORE_PSS_Stress</td>
+<td align="right">7.102013</td>
+<td align="right">6</td>
+<td align="right">1.8485125</td>
+<td align="right">1468.8899</td>
+<td align="left">&lt;0.001</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20score%20pss%20stress-1.png" width="672" /></p>
+</div>
+</div>
+<div id="pss-facteurs-adaptation-au-stress"
+class="section level3 tabset">
+<h3 class="tabset">PSS Facteurs adaptation au stress</h3>
+<pre><code>## L&#39;alpha de Cronbach sur les 3 items est de 0.632857044365542</code></pre>
+<div id="pss-4" class="section level4">
+<h4>PSS 4</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2.346309</td>
+<td align="right">2</td>
+<td align="right">1.189477</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20PSS%204-1.png" width="672" /></p>
+</div>
+<div id="pss-5" class="section level4">
+<h4>PSS 5</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2.944966</td>
+<td align="right">3</td>
+<td align="right">0.9134182</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20PSS%205-1.png" width="672" /></p>
+</div>
+<div id="pss-7" class="section level4">
+<h4>PSS 7</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2.983893</td>
+<td align="right">3</td>
+<td align="right">1.175355</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20PSS%207-1.png" width="672" /></p>
+</div>
+<div id="score-pss-adapation-au-stress" class="section level4">
+<h4>SCORE PSS Adapation au stress</h4>
+<table>
+<colgroup>
+<col width="28%" />
+<col width="12%" />
+<col width="10%" />
+<col width="15%" />
+<col width="21%" />
+<col width="10%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Item</th>
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+<th align="right">chi2_ajustement</th>
+<th align="left">P.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">PSS4</td>
+<td align="right">2.346309</td>
+<td align="right">2</td>
+<td align="right">1.1894769</td>
+<td align="right">62.12483</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="even">
+<td align="left">PSS5</td>
+<td align="right">2.944966</td>
+<td align="right">3</td>
+<td align="right">0.9134182</td>
+<td align="right">159.00537</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="odd">
+<td align="left">PSS7</td>
+<td align="right">2.983893</td>
+<td align="right">3</td>
+<td align="right">1.1753555</td>
+<td align="right">246.54362</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="even">
+<td align="left">SCORE_PSS_Adaptation</td>
+<td align="right">8.275168</td>
+<td align="right">8</td>
+<td align="right">2.5060654</td>
+<td align="right">237.76376</td>
+<td align="left">&lt;0.001</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20score%20pss%20adaptation-1.png" width="672" /></p>
+</div>
+</div>
+</div>
+<div id="lien-utilisation-de-strava-et-stress-perçu"
+class="section level1">
+<h1>Lien utilisation de Strava et stress perçu</h1>
+<p>La question ici est de savoir si l’utilisation de Strava (intensité
+et fréquence d’utilisation, utilisation des fonctionnalités de
+sociabilisation en ligne et exposition d’informations personnelles…)
+engendre un stress perçu ou non.</p>
+<div id="une-première-approche-1" class="section level3 tabset">
+<h3 class="tabset">Une première approche</h3>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1.183893</td>
+<td align="right">1</td>
+<td align="right">0.4970433</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graph%20stress%20Strava-1.png" width="672" /></p>
+</div>
+<div id="statistiques-3" class="section level3 tabset">
+<h3 class="tabset">Statistiques</h3>
+<div id="corrélations-4" class="section level4">
+<h4>Corrélations</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Motivation
+</th>
+<th style="text-align:left;">
+PSS_Stress
+</th>
+<th style="text-align:left;">
+PSS_Adaptation
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+SCORE SIS
+</td>
+<td style="text-align:left;">
+<span style="color:red;">0.18</span>
+</td>
+<td style="text-align:left;">
+<span style="color:green;">-0.36</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SCORE OSF
+</td>
+<td style="text-align:left;">
+0.09
+</td>
+<td style="text-align:left;">
+<span style="color:#FC4C02;">-0.23</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SCORE EXPO
+</td>
+<td style="text-align:left;">
+0.03
+</td>
+<td style="text-align:left;">
+<span style="color:#FC4C02;">-0.21</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Clubs Strava
+</td>
+<td style="text-align:left;">
+0.02
+</td>
+<td style="text-align:left;">
+<span style="color:red;">-0.15</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Kudos reçus
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+-0.1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fréquence publication
+</td>
+<td style="text-align:left;">
+-0.07
+</td>
+<td style="text-align:left;">
+<span style="color:red;">-0.12</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fréquence consultation
+</td>
+<td style="text-align:left;">
+0.09
+</td>
+<td style="text-align:left;">
+<span style="color:#FC4C02;">-0.21</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Nombre d’abonnés
+</td>
+<td style="text-align:left;">
+0.01
+</td>
+<td style="text-align:left;">
+<span style="color:red;">-0.12</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Nombre d’abonnements
+</td>
+<td style="text-align:left;">
+0.03
+</td>
+<td style="text-align:left;">
+<span style="color:red;">-0.11</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Type d’abonnement
+</td>
+<td style="text-align:left;">
+-0.05
+</td>
+<td style="text-align:left;">
+<span style="color:red;">-0.14</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ancienneté Strava
+</td>
+<td style="text-align:left;">
+-0.02
+</td>
+<td style="text-align:left;">
+0
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="visualisation-graphique-9" class="section level4 tabset">
+<h4 class="tabset">Visualisation graphique</h4>
+<div id="sis--pss-adaptation" class="section level5">
+<h5>SIS- PSS Adaptation</h5>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20pss%20adaptation%20et%20score%20sis-1.png" width="672" /></p>
+</div>
+<div id="osf---pss-adaptation" class="section level5">
+<h5>OSF - PSS Adaptation</h5>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20pss%20adaptation%20et%20score%20osf-1.png" width="672" /></p>
+</div>
+<div id="expo--pss-adaptation" class="section level5">
+<h5>EXPO- PSS Adaptation</h5>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20pss%20adaptation%20et%20score%20expo-1.png" width="672" /></p>
+</div>
+<div id="expo--pss-adaptation-1" class="section level5">
+<h5>EXPO- PSS Adaptation</h5>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20pss%20adaptation%20et%20freq%20consultation-1.png" width="672" /></p>
+</div>
+</div>
+<div id="test-t-de-student-5" class="section level4">
+<h4>Test t de Student</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:right;">
+Student
+</th>
+<th style="text-align:left;">
+p_value
+</th>
+<th style="text-align:right;">
+Gratuit
+</th>
+<th style="text-align:right;">
+Payant
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Type d’abonnement et score PSS Stress
+</td>
+<td style="text-align:right;">
+1.487129
+</td>
+<td style="text-align:left;">
+sup. 0.001
+</td>
+<td style="text-align:right;">
+7.176348
+</td>
+<td style="text-align:right;">
+6.96578
+</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:right;">
+Student
+</th>
+<th style="text-align:left;">
+p_value
+</th>
+<th style="text-align:right;">
+Gratuit
+</th>
+<th style="text-align:right;">
+Payant
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Type d’abonnement et score PSS Adaptation
+</td>
+<td style="text-align:right;">
+3.745083
+</td>
+<td style="text-align:left;">
+&lt;0.001
+</td>
+<td style="text-align:right;">
+8.526971
+</td>
+<td style="text-align:right;">
+7.813688
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="visualisation-graphique-10" class="section level4">
+<h4>Visualisation graphique</h4>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+</div>
+</div>
+</div>
+<div id="lien-stress-perçu-et-caractéristiques-sportives"
+class="section level1">
+<h1>Lien stress perçu et caractéristiques sportives</h1>
+<p>Il s’agit de savoir s’il y a un lien entre les scores PSS Stress et
+PSS Adaptation et les caractéristiques sportives.</p>
+<div id="statistiques-4" class="section level3 tabset">
+<h3 class="tabset">Statistiques</h3>
+<div id="corrélations-5" class="section level4">
+<h4>Corrélations</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:left;">
+PSS_Stress
+</th>
+<th style="text-align:left;">
+PSS_Adaptation
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Fréquence d’entraînement
+</td>
+<td style="text-align:left;">
+-0.12
+</td>
+<td style="text-align:left;">
+0.02
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Kilomètres par semaine
+</td>
+<td style="text-align:left;">
+-0.14
+</td>
+<td style="text-align:left;">
+0.04
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Compétitions par an
+</td>
+<td style="text-align:left;">
+0.03
+</td>
+<td style="text-align:left;">
+-0.07
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="mesure-de-la-motivation" class="section level1">
+<h1>Mesure de la motivation</h1>
+<p>Cette échelle est une traduction et adaptation du BREQ-3 (Behavioural
+Regulation In Exercise Questionnaire) en 12 items, qui mesure la
+motivation intrinsèque, intégrée et identifiée (motivations
+autodéterminées) et la motivation introjectée et externe (motivations
+non-autodéterminées) et l’amotivation <sup>12</sup>. Les alphas de
+Cronbach dans l’étude de Rocchi <sup>12</sup> ne sont pas mentionnés.
+L’Oméga de McDonald est utilisé à la place et les valeurs sont de :</p>
+<ul>
+<li>Motivation intrinsèque 0.72 - 0.82</li>
+<li>Régulation intégrée 0.56 - 0.79</li>
+<li>Régulation identifiée 0.44 - 0.76</li>
+<li>Régulation introjectée 0.60 - 0.77</li>
+<li>Régulation externe 0.54 - 0.70</li>
+<li>Amotivation 0.59 - 0.63</li>
+</ul>
+<div id="motivation-intrinsèque" class="section level3 tabset">
+<h3 class="tabset">Motivation intrinsèque</h3>
+<pre><code>## L&#39;alpha de Cronbach sur les 2 items est de 0.545949601260713</code></pre>
+<div id="breq-1" class="section level4">
+<h4>BREQ 1</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">3.816107</td>
+<td align="right">4</td>
+<td align="right">0.4365781</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20breq%201-1.png" width="672" /></p>
+</div>
+<div id="breq-2" class="section level4">
+<h4>BREQ 2</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">3.233557</td>
+<td align="right">3</td>
+<td align="right">0.8306633</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20breq%202-1.png" width="672" /></p>
+</div>
+<div id="score-motivation-intrinsèque" class="section level4">
+<h4>Score motivation intrinsèque</h4>
+<table>
+<colgroup>
+<col width="30%" />
+<col width="12%" />
+<col width="10%" />
+<col width="14%" />
+<col width="21%" />
+<col width="10%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Item</th>
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+<th align="right">chi2_ajustement</th>
+<th align="left">P.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">BREQ 1</td>
+<td align="right">3.816107</td>
+<td align="right">4.0</td>
+<td align="right">0.4365781</td>
+<td align="right">864.9450</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="even">
+<td align="left">BREQ 2</td>
+<td align="right">3.233557</td>
+<td align="right">3.0</td>
+<td align="right">0.8306633</td>
+<td align="right">336.4336</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="odd">
+<td align="left">SCORE_BREQ_Intrinseque</td>
+<td align="right">3.524832</td>
+<td align="right">3.5</td>
+<td align="right">0.5502817</td>
+<td align="right">455.4349</td>
+<td align="left">&lt;0.001</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20score%20intrinseque-1.png" width="672" /></p>
+</div>
+</div>
+<div id="motivation-intégrée" class="section level3 tabset">
+<h3 class="tabset">Motivation intégrée</h3>
+<pre><code>## L&#39;alpha de Cronbach sur les 2 items est de 0.713655624275382</code></pre>
+<div id="breq-3" class="section level4">
+<h4>BREQ 3</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">3.273826</td>
+<td align="right">4</td>
+<td align="right">0.8504739</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20breq3-1.png" width="672" /></p>
+</div>
+<div id="breq-4" class="section level4">
+<h4>BREQ 4</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">3.567785</td>
+<td align="right">4</td>
+<td align="right">0.6337578</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20breq4-1.png" width="672" /></p>
+</div>
+<div id="score-motivation-intégrée" class="section level4">
+<h4>Score motivation intégrée</h4>
+<table>
+<colgroup>
+<col width="27%" />
+<col width="12%" />
+<col width="11%" />
+<col width="15%" />
+<col width="22%" />
+<col width="11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Item</th>
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+<th align="right">chi2_ajustement</th>
+<th align="left">P.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">BREQ 3</td>
+<td align="right">3.273826</td>
+<td align="right">4.0</td>
+<td align="right">0.8504739</td>
+<td align="right">360.6913</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="even">
+<td align="left">BREQ 4</td>
+<td align="right">3.567785</td>
+<td align="right">4.0</td>
+<td align="right">0.6337578</td>
+<td align="right">748.2349</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="odd">
+<td align="left">SCORE_BREQ_Integree</td>
+<td align="right">3.420805</td>
+<td align="right">3.5</td>
+<td align="right">0.6612626</td>
+<td align="right">381.6631</td>
+<td align="left">&lt;0.001</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20score%20integree-1.png" width="672" /></p>
+</div>
+</div>
+<div id="motivation-identifiée" class="section level3 tabset">
+<h3 class="tabset">Motivation identifiée</h3>
+<pre><code>## L&#39;alpha de Cronbach sur les 2 items est de 0.671573740786993</code></pre>
+<div id="breq-5" class="section level4">
+<h4>BREQ 5</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">3.67651</td>
+<td align="right">4</td>
+<td align="right">0.5524128</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20breq5-1.png" width="672" /></p>
+</div>
+<div id="breq-6" class="section level4">
+<h4>BREQ 6</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">3.813423</td>
+<td align="right">4</td>
+<td align="right">0.4292181</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20breq6-1.png" width="672" /></p>
+</div>
+<div id="score-motivation-identifiée" class="section level4">
+<h4>Score motivation identifiée</h4>
+<table>
+<colgroup>
+<col width="29%" />
+<col width="12%" />
+<col width="10%" />
+<col width="14%" />
+<col width="21%" />
+<col width="10%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Item</th>
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+<th align="right">chi2_ajustement</th>
+<th align="left">P.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">BREQ 5</td>
+<td align="right">3.676510</td>
+<td align="right">4</td>
+<td align="right">0.5524128</td>
+<td align="right">970.2591</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="even">
+<td align="left">BREQ 6</td>
+<td align="right">3.813423</td>
+<td align="right">4</td>
+<td align="right">0.4292181</td>
+<td align="right">1371.1718</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="odd">
+<td align="left">SCORE_BREQ_Identifiee</td>
+<td align="right">3.744966</td>
+<td align="right">4</td>
+<td align="right">0.4291834</td>
+<td align="right">492.7678</td>
+<td align="left">&lt;0.001</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20score%20identifiee-1.png" width="672" /></p>
+</div>
+</div>
+<div id="motivation-introjectéee" class="section level3 tabset">
+<h3 class="tabset">Motivation introjectéee</h3>
+<pre><code>## L&#39;alpha de Cronbach sur les 2 items est de 0.774804605406311</code></pre>
+<div id="breq-7" class="section level4">
+<h4>BREQ 7</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1.985235</td>
+<td align="right">2</td>
+<td align="right">0.8850897</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20breq7-1.png" width="672" /></p>
+</div>
+<div id="breq-8" class="section level4">
+<h4>BREQ 8</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2.159731</td>
+<td align="right">2</td>
+<td align="right">0.9231141</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20breq8-1.png" width="672" /></p>
+</div>
+<div id="score-motivation-introjectée" class="section level4">
+<h4>Score motivation introjectée</h4>
+<table>
+<colgroup>
+<col width="30%" />
+<col width="12%" />
+<col width="10%" />
+<col width="14%" />
+<col width="21%" />
+<col width="10%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Item</th>
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+<th align="right">chi2_ajustement</th>
+<th align="left">P.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">BREQ 7</td>
+<td align="right">1.985235</td>
+<td align="right">2</td>
+<td align="right">0.8850897</td>
+<td align="right">202.8604</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="even">
+<td align="left">BREQ 8</td>
+<td align="right">2.159731</td>
+<td align="right">2</td>
+<td align="right">0.9231141</td>
+<td align="right">134.8872</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="odd">
+<td align="left">SCORE_BREQ_Introjectee</td>
+<td align="right">2.072483</td>
+<td align="right">2</td>
+<td align="right">0.8169787</td>
+<td align="right">268.7611</td>
+<td align="left">&lt;0.001</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20score%20introjectee-1.png" width="672" /></p>
+</div>
+</div>
+<div id="motivation-externe" class="section level3 tabset">
+<h3 class="tabset">Motivation externe</h3>
+<pre><code>## L&#39;alpha de Cronbach sur les 2 items est de 0.498730665186932</code></pre>
+<div id="breq-9" class="section level4">
+<h4>BREQ 9</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1.233557</td>
+<td align="right">1</td>
+<td align="right">0.5503678</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20breq9-1.png" width="672" /></p>
+</div>
+<div id="breq-10" class="section level4">
+<h4>BREQ 10</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1.061745</td>
+<td align="right">1</td>
+<td align="right">0.2959397</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20breq10-1.png" width="672" /></p>
+</div>
+<div id="score-motivation-externe" class="section level4">
+<h4>Score motivation externe</h4>
+<table>
+<colgroup>
+<col width="26%" />
+<col width="12%" />
+<col width="11%" />
+<col width="15%" />
+<col width="22%" />
+<col width="11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Item</th>
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+<th align="right">chi2_ajustement</th>
+<th align="left">P.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">BREQ 9</td>
+<td align="right">1.233557</td>
+<td align="right">1</td>
+<td align="right">0.5503678</td>
+<td align="right">1313.432</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="even">
+<td align="left">BREQ 10</td>
+<td align="right">1.061745</td>
+<td align="right">1</td>
+<td align="right">0.2959397</td>
+<td align="right">1951.338</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="odd">
+<td align="left">SCORE_BREQ_Externe</td>
+<td align="right">1.147651</td>
+<td align="right">1</td>
+<td align="right">0.3606267</td>
+<td align="right">1192.690</td>
+<td align="left">&lt;0.001</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20score%20externe%20breq-1.png" width="672" /></p>
+</div>
+</div>
+<div id="amotivation" class="section level3 tabset">
+<h3 class="tabset">Amotivation</h3>
+<pre><code>## L&#39;alpha de Cronbach sur les 2 items est de 0.242368387013323</code></pre>
+<div id="breq-11" class="section level4">
+<h4>BREQ 11</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1.114094</td>
+<td align="right">1</td>
+<td align="right">0.4070977</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20breq11-1.png" width="672" /></p>
+</div>
+<div id="breq-12" class="section level4">
+<h4>BREQ 12</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1.022819</td>
+<td align="right">1</td>
+<td align="right">0.1743347</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20breq12-1.png" width="672" /></p>
+</div>
+<div id="score-amotivation" class="section level4">
+<h4>Score amotivation</h4>
+<table>
+<colgroup>
+<col width="30%" />
+<col width="12%" />
+<col width="10%" />
+<col width="14%" />
+<col width="21%" />
+<col width="10%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Item</th>
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+<th align="right">chi2_ajustement</th>
+<th align="left">P.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">BREQ 11</td>
+<td align="right">1.114094</td>
+<td align="right">1</td>
+<td align="right">0.4070977</td>
+<td align="right">1757.609</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="even">
+<td align="left">BREQ 12</td>
+<td align="right">1.022819</td>
+<td align="right">1</td>
+<td align="right">0.1743347</td>
+<td align="right">1401.699</td>
+<td align="left">&lt;0.001</td>
+</tr>
+<tr class="odd">
+<td align="left">SCORE_BREQ_Amovitation</td>
+<td align="right">1.068456</td>
+<td align="right">1</td>
+<td align="right">0.2362018</td>
+<td align="right">1339.243</td>
+<td align="left">&lt;0.001</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20score%20amotivation%20breq-1.png" width="672" /></p>
+</div>
+</div>
+<div id="relative-autonomy-index" class="section level3 tabset">
+<h3 class="tabset">Relative Autonomy Index</h3>
+<p>Le Relative Autonomy Index est un indice qui mesure l’autonomie
+motivationnelle en pondérant les types de motivation selon leur degré
+d’autodétermination<sup>12</sup>. Il se calcule en faisant la somme
+suivante :</p>
+<p>(-3)xScore_amotivation + (-2)xScore_motivation_externe +
+(-1)xScore_motivation_introjectée + Score_motivitation identifiée + 2x
+Score_motivation_intégrée + 3x Score_motivationè_intrinsèque.</p>
+<p>Un haut score signifie que que l’individu est motivé de manière
+autonome (raisons intrinsèques ou identifiées) tandis qu’un score bas
+indique que l’individu est amotivé ou a une motivation contrôlée.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Item</th>
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">RAI</td>
+<td align="right">13.58792</td>
+<td align="right">14.5</td>
+<td align="right">3.27677</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/score%20rai%20breq-1.png" width="672" /></p>
+</div>
+</div>
+<div id="lien-strava---motivation" class="section level1">
+<h1>Lien Strava - motivation</h1>
+<p>La question ici est de savoir si l’utilisation de Strava (intensité
+et fréquence d’utilisation, utilisation des fonctionnalités de
+sociabilisation en ligne et exposition d’informations personnelles…) ont
+un lien avec la motivation à courir (scores BREQ).</p>
+<div id="une-première-approche-2" class="section level4 tabset">
+<h4 class="tabset">Une première approche</h4>
+<div id="sentiment-de-motivation" class="section level5">
+<h5>Sentiment de motivation</h5>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2.296644</td>
+<td align="right">2</td>
+<td align="right">0.9955827</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graph%20motivation%20Strava-1.png" width="672" /></p>
+</div>
+<div id="changement-dentraînement" class="section level5">
+<h5>Changement d’entraînement</h5>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Moyenne</th>
+<th align="right">Médiane</th>
+<th align="right">Ecart_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1.695302</td>
+<td align="right">1</td>
+<td align="right">0.8993976</td>
+</tr>
+</tbody>
+</table>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20changement%20dentrainement%20suite%20strava-1.png" width="672" /></p>
+</div>
+</div>
+<div id="corrélations-6" class="section level4">
+<h4>Corrélations</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Motivation
+</th>
+<th style="text-align:left;">
+intrinseque
+</th>
+<th style="text-align:left;">
+integree
+</th>
+<th style="text-align:left;">
+identifiee
+</th>
+<th style="text-align:left;">
+introjectee
+</th>
+<th style="text-align:right;">
+externe
+</th>
+<th style="text-align:right;">
+amotivation
+</th>
+<th style="text-align:left;">
+RAI
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+SCORE SIS
+</td>
+<td style="text-align:left;">
+0.1
+</td>
+<td style="text-align:left;">
+<span style="color:red;">0.19</span>
+</td>
+<td style="text-align:left;">
+<span style="color:red;">0.15</span>
+</td>
+<td style="text-align:left;">
+<span style="color:#FC4C02;">0.21</span>
+</td>
+<td style="text-align:right;">
+0.10
+</td>
+<td style="text-align:right;">
+-0.05
+</td>
+<td style="text-align:left;">
+0.08
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SCORE OSF
+</td>
+<td style="text-align:left;">
+0.09
+</td>
+<td style="text-align:left;">
+<span style="color:red;">0.14</span>
+</td>
+<td style="text-align:left;">
+0.1
+</td>
+<td style="text-align:left;">
+0.07
+</td>
+<td style="text-align:right;">
+0.08
+</td>
+<td style="text-align:right;">
+-0.03
+</td>
+<td style="text-align:left;">
+0.09
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SCORE EXPO
+</td>
+<td style="text-align:left;">
+0.08
+</td>
+<td style="text-align:left;">
+<span style="color:red;">0.11</span>
+</td>
+<td style="text-align:left;">
+0.1
+</td>
+<td style="text-align:left;">
+0.05
+</td>
+<td style="text-align:right;">
+-0.01
+</td>
+<td style="text-align:right;">
+-0.07
+</td>
+<td style="text-align:left;">
+0.1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Clubs Strava
+</td>
+<td style="text-align:left;">
+0.09
+</td>
+<td style="text-align:left;">
+<span style="color:red;">0.14</span>
+</td>
+<td style="text-align:left;">
+0.07
+</td>
+<td style="text-align:left;">
+0.01
+</td>
+<td style="text-align:right;">
+0.02
+</td>
+<td style="text-align:right;">
+-0.02
+</td>
+<td style="text-align:left;">
+<span style="color:red;">0.11</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Kudos reçus
+</td>
+<td style="text-align:left;">
+<span style="color:red;">0.14</span>
+</td>
+<td style="text-align:left;">
+<span style="color:#FC4C02;">0.23</span>
+</td>
+<td style="text-align:left;">
+<span style="color:red;">0.13</span>
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+0.02
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:left;">
+<span style="color:red;">0.17</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fréquence publication
+</td>
+<td style="text-align:left;">
+<span style="color:#FC4C02;">0.23</span>
+</td>
+<td style="text-align:left;">
+<span style="color:green;">0.34</span>
+</td>
+<td style="text-align:left;">
+<span style="color:#FC4C02;">0.24</span>
+</td>
+<td style="text-align:left;">
+0.07
+</td>
+<td style="text-align:right;">
+-0.07
+</td>
+<td style="text-align:right;">
+-0.07
+</td>
+<td style="text-align:left;">
+<span style="color:#FC4C02;">0.3</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fréquence consultation
+</td>
+<td style="text-align:left;">
+<span style="color:red;">0.12</span>
+</td>
+<td style="text-align:left;">
+<span style="color:red;">0.2</span>
+</td>
+<td style="text-align:left;">
+<span style="color:red;">0.13</span>
+</td>
+<td style="text-align:left;">
+<span style="color:red;">0.13</span>
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+<td style="text-align:right;">
+-0.10
+</td>
+<td style="text-align:left;">
+<span style="color:red;">0.14</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Nombre d’abonnés
+</td>
+<td style="text-align:left;">
+<span style="color:red;">0.12</span>
+</td>
+<td style="text-align:left;">
+<span style="color:red;">0.2</span>
+</td>
+<td style="text-align:left;">
+0.08
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+<td style="text-align:right;">
+0.02
+</td>
+<td style="text-align:left;">
+<span style="color:red;">0.15</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Nombre d’abonnements
+</td>
+<td style="text-align:left;">
+<span style="color:red;">0.16</span>
+</td>
+<td style="text-align:left;">
+<span style="color:#FC4C02;">0.23</span>
+</td>
+<td style="text-align:left;">
+0.1
+</td>
+<td style="text-align:left;">
+-0.01
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+<td style="text-align:right;">
+0.02
+</td>
+<td style="text-align:left;">
+<span style="color:red;">0.18</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Type d’abonnement
+</td>
+<td style="text-align:left;">
+0.1
+</td>
+<td style="text-align:left;">
+<span style="color:red;">0.14</span>
+</td>
+<td style="text-align:left;">
+0.09
+</td>
+<td style="text-align:left;">
+0.07
+</td>
+<td style="text-align:right;">
+-0.06
+</td>
+<td style="text-align:right;">
+-0.07
+</td>
+<td style="text-align:left;">
+<span style="color:red;">0.13</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ancienneté Strava
+</td>
+<td style="text-align:left;">
+-0.03
+</td>
+<td style="text-align:left;">
+0.09
+</td>
+<td style="text-align:left;">
+-0.03
+</td>
+<td style="text-align:left;">
+-0.06
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:left;">
+0.02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="graphiques-corrélations-0.2" class="section level4 tabset">
+<h4 class="tabset">Graphiques corrélations &gt;0.2</h4>
+<div id="sis--introjectée" class="section level5">
+<h5>SIS- Introjectée</h5>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20score%20sis%20en%20fonction%20introjectee-1.png" width="672" /></p>
+</div>
+<div id="kudos--intégrée" class="section level5">
+<h5>Kudos- Intégrée</h5>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20nb%20kudos%20recus%20int%C3%A9gr%C3%A9e-1.png" width="672" /></p>
+</div>
+<div id="fréquence-de-publication---intrinsèque" class="section level5">
+<h5>Fréquence de publication - Intrinsèque</h5>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20freq%20publi%20recus%20intrinseque-1.png" width="672" /></p>
+</div>
+<div id="fréquence-de-publication---intégrée" class="section level5">
+<h5>Fréquence de publication - Intégrée</h5>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20freq%20publi%20recus%20int%C3%A9gr%C3%A9e-1.png" width="672" /></p>
+</div>
+<div id="fréquence-de-publication---identifiée" class="section level5">
+<h5>Fréquence de publication - Identifiée</h5>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20freq%20publi%20recus%20identifi%C3%A9e-1.png" width="672" /></p>
+</div>
+<div id="nombre-abonnements---intégrée" class="section level5">
+<h5>Nombre abonnements - Intégrée</h5>
+<p><img src="R%C3%A9sultats_Strava_files/figure-html/graphique%20nb%20abonnements%20int%C3%A9gr%C3%A9e-1.png" width="672" /></p>
+</div>
+</div>
+</div>
+<div id="limites" class="section level1">
+<h1>Limites</h1>
+<p>Il s’agit d’un questionnaire en ligne diffusé sur les réseaux sociaux
+donc il est difficile de maîtriser la véracité des réponses. De plus, il
+s’agit d’auto-évalution pour chaque réponse donc il peut y avoir un
+biais de désirabilité sociale, un biais de confirmation, un effet de
+halo, et un biais d’auto-complaisance. Il n’y a pas de mesures
+objectives. Par ailleurs, il s’agit uniquement de personnes volontaires
+qui ont répondus. Mon étude ne tient pas compte des coureurs amateurs
+qui ont utilisé Strava et ont choisi de l’arrêter ou qui n’ont jamais
+utilisé Strava.</p>
+<p>Il aurait également pu être intéressant de mesurer la tendance à la
+comparaison sociale en utilisant le questionnaire INCOM de Gibbons
+<sup>14</sup> ou le bien-être psychologique avec le Well-Being Scale
+<sup>15</sup> ou encore l’estime de soi <sup>16</sup> mais le
+questionnaire ne devait pas être trop long afin de ne pas décourager les
+répondants.</p>
+</div>
+<div id="bibliographie" class="section level1">
+<h1>Bibliographie</h1>
+<p>[1] : Strava. (2024). Year in sport: The trend report. Strava. <a
+href="https://downloads.ctfassets.net/wad4jonn1ykp/1sJg4OiBKFoGYDtw9NV9v4/69d6c0b71cfebb350f27b8f8abcf42f9/Strava_Year_in_Sport_-The_Trend_Report-_fr-FR.pdf"
+class="uri">https://downloads.ctfassets.net/wad4jonn1ykp/1sJg4OiBKFoGYDtw9NV9v4/69d6c0b71cfebb350f27b8f8abcf42f9/Strava_Year_in_Sport_-The_Trend_Report-_fr-FR.pdf</a></p>
+<p>[2] : Strava. (2023). Rapport global Strava 2023. Strava. <a
+href="https://downloads.ctfassets.net/9olkiac82a1q/iU421iiO6Hky1MVvYThmz/618d11560020aaf123d5e1670fd50514/Strava-Global-Report-2023-fr-FR.pdf"
+class="uri">https://downloads.ctfassets.net/9olkiac82a1q/iU421iiO6Hky1MVvYThmz/618d11560020aaf123d5e1670fd50514/Strava-Global-Report-2023-fr-FR.pdf</a></p>
+<p>[3] : Russell, H. C., Potts, C., &amp; Nelson, E. (2023). “If it’s
+not on strava it didn’t happen”: Perceived psychosocial implications of
+strava use in collegiate club runners. Recreational Sports Journal,
+47(1), 15‑25. <a href="https://doi.org/10.1177/15588661221148170"
+class="uri">https://doi.org/10.1177/15588661221148170</a></p>
+<p>[4] : Evans, B. (2019). Why we run. An exploration of what and who
+motivates us to run. URL: <a href="https://whywerun"
+class="uri">https://whywerun</a>. strava.
+com/assets/whitepaper/Whitepaper_Strava_WhyWeRun_012320. pdf(дата
+звернення: 10.12. 2020).</p>
+<p>[5] : Chapman, L. G. (2024). Social Comparison Predicts Well-Being in
+Non-Elite Young Adult Runners Who Use Strava (Master’s thesis, Miami
+University).</p>
+<p>[6] : Petersen, J. M., Kemps, E., Lewis, L. K., &amp; Prichard, I.
+(2020). Associations between commercial app use and physical activity:
+cross-sectional study. Journal of medical Internet research, 22(6),
+e17152.</p>
+<p>[7] : Stragier, J., Vanden Abeele, M., &amp; De Marez, L. (2018).
+Recreational athletes’ running motivations as predictors of their use of
+online fitness community features. Behaviour &amp; Information
+Technology, 37(8), 815-827.</p>
+<p>[8] : Ellison, N. B., Steinfield, C., &amp; Lampe, C. (2007). The
+benefits of facebook “friends:” social capital and college students’ use
+of online social network sites. Journal of Computer-Mediated
+Communication, 12(4), 1143‑1168. <a
+href="https://doi.org/10.1111/j.1083-6101.2007.00367"
+class="uri">https://doi.org/10.1111/j.1083-6101.2007.00367</a>.</p>
+<p>[9] : Ross, C., Orr, E. S., Sisic, M., Arseneault, J. M., Simmering,
+M. G., &amp; Orr, R. R. (2009). Personality and motivations associated
+with Facebook use. Computers in Human Behavior, 25(2), 578‑586. <a
+href="https://doi.org/10.1016/j.chb.2008.12.024"
+class="uri">https://doi.org/10.1016/j.chb.2008.12.024</a></p>
+<p>[10] : Hjetland, G. J., Finserås, T. R., Sivertsen, B., Colman, I.,
+Hella, R. T., &amp; Skogen, J. C. (2022). Focus on self-presentation on
+social media across sociodemographic variables, lifestyles, and
+personalities: A cross-sectional study. International journal of
+environmental research and public health, 19(17), 11133.</p>
+<p>[11] : Sischka, P. E., Grübbel, L., Reisinger, C., Neufang, K. M.,
+&amp; Schmidt, A. F. (2024). On the dimensionality, suitability of
+sum/mean scores, and cross-country measurement invariance of the
+Perceived Stress Scale 10 (PSS-10)–Evidence from 41 countries.
+Management, 18, 04.</p>
+<p>[12] : Rocchi, M. A., Wilson, P. M., Sylvester, B. D., Guerin, E.,
+Shi, Z., &amp; Sweet, S. N. (2023). Toward brief tools assessing
+motivation for exercise: Rationale and development of a six-and 12-item
+version of the Behavioral Regulation in Exercise 3 (BREQ3)
+Questionnaire. Sport, Exercise, and Performance Psychology, 12(3),
+205.</p>
+<p>[13] : Chiu, Y. H., Lu, F. J. H., Lin, J. H., Nien, C. L., Hsu, Y.
+W., &amp; Liu, H. Y. (2016). Psychometric properties of the Perceived
+Stress Scale (PSS): measurement invariance between athletes and
+non-athletes and construct validity. PeerJ, 4, e2790.</p>
+<p>[14] : Gibbons, F. X., &amp; Buunk, B. P. (1999). Individual
+differences in social comparison: development of a scale of social
+comparison orientation. Journal of personality and social psychology,
+76(1), 129.</p>
+<p>[15] : Trousselard, M., Steiler, D., Dutheil, F., Claverie, D.,
+Canini, F., Fenouillet, F., … &amp; Franck, N. (2016). Validation of the
+Warwick-Edinburgh mental well-being scale (WEMWBS) in French psychiatric
+and general populations. Psychiatry research, 245, 282-290.</p>
+<p>[16] : Repišti, S., &amp; Kerla, M. (2016). Social self-esteem
+scale(Sses). Unpublished. <a
+href="https://doi.org/10.13140/RG.2.1.3118.3128"
+class="uri">https://doi.org/10.13140/RG.2.1.3118.3128</a></p>
+<p>[17] : Hjetland, G. J., Finserås, T. R., Sivertsen, B., Colman, I.,
+Hella, R. T., Andersen, A. I. O., &amp; Skogen, J. C. (2024). Digital
+self-presentation and adolescent mental health: Cross-sectional and
+longitudinal insights from the “LifeOnSoMe”-study. BMC Public Health,
+24(1), 2635.</p>
+</div>
+<div id="annexes" class="section level1">
+<h1>Annexes</h1>
+<p>Questionnaire utilisé dans le cadre de l’étude :</p>
+<div id="questions-générales" class="section level5">
+<h5>Questions générales</h5>
+<ol style="list-style-type: decimal">
+<li>Âge : <em>de 18 à 86 ans et plus</em></li>
+<li>Sexe : <em>Homme / Femme</em></li>
+<li>Catégorie socio-professionnelle : <em>Agriculteurs exploitants /
+Artisans / Commerçants et chefs d’entreprise / Cadres et professions
+intellectuelles supérieures / Professions intermédiaires / Employés /
+Ouvriers / Retraités / Etudiants / Autres personnes sans activité
+professionelle</em></li>
+</ol>
+</div>
+<div id="quantification-de-la-pratique-de-la-course-à-pied"
+class="section level5">
+<h5>Quantification de la pratique de la course à pied</h5>
+<ol start="4" style="list-style-type: decimal">
+<li>Depuis combien de temps pratiquez-vous la course à pied (en années)
+? <em>Réponse libre chiffrée</em></li>
+<li>Êtes-vous un(e) coureur (se) : <em>Débutant(e) / Intermédiaire /
+Confirmé(e) / Expert(e)</em></li>
+<li>Combien de fois courez-vous par semaine en moyenne ? <em>Réponse
+libre chiffrée</em></li>
+<li>Combien de kilomètres parcourez-vous par semaine en moyenne ?
+<em>Réponse libre chiffrée</em></li>
+<li>A combien de compétitions (objectifs principaux) participez-vous par
+an en moyenne ? <em>Réponse libre chiffrée</em></li>
+<li>Vous pratiquez le plus souvent la course à pied : <em>Sur route / En
+montagne ou sentiers de pleine nature (trail)</em></li>
+<li>Êtes-vous dans un club de course à pied ? <em>Oui / Non</em></li>
+<li>Etes-vous accompagné(e) par un coach ou un entraîneur personnel ?
+<em>Oui / Non</em></li>
+<li>Suivez-vous un programme d’entraînement (type RunMotionCoach,
+Decathlon, Nolio, …) ? <em>Oui / Non</em></li>
+<li>Vous vous entraînez le plus souvent : <em>Seul / En groupe</em></li>
+<li>Avez-vous un objectif de compétition en 2025 ? <em>Oui /
+Non</em></li>
+<li>Si oui, précisez le nombre de kilomètres de votre objectif principal
+(le plus long en distance si plusieurs objectifs) : <em>20K / 50 K / 100
+K / 100M</em> (Non obligatoire)</li>
+<li>Au cours des 6 mois précédents, avez-vous été blessé(e) à cause de
+la course à pied ? <em>Oui / Non</em></li>
+<li>Si oui, cette blessure a-t-elle imposée une pause dans votre
+pratique ? <em>Oui, quelques jours / Oui, quelques semaines / Oui,
+quelques mois / Non</em> (Non obligatoire)</li>
+</ol>
+</div>
+<div id="quantitifaction-de-lutilisation-de-strava"
+class="section level5">
+<h5>Quantitifaction de l’utilisation de Strava</h5>
+<ol start="18" style="list-style-type: decimal">
+<li>A quelle fréquence publiez-vous vos activités sur Strava ? (nombre
+de jours par semaine) : <em>Réponse libre chiffrée</em>[a]</li>
+<li>A quelle fréquence consultez-vous votre fil Strava ? (nombre de
+jours par semaine) : <em>Réponse libre chiffrée</em> [a]</li>
+<li>Strava fait partie de mon activité quotidienne : <em>Pas du tout
+d’accord / Plutôt pas d’accord / Plutôt d’accord / Totalement
+d’accord</em> [a]</li>
+<li>Je suis fier(fière) de dire aux gens que j’utilise Strava : <em>Pas
+du tout d’accord / Plutôt pas d’accord / Plutôt d’accord / Totalement
+d’accord</em> [a]</li>
+<li>Je me sens déconnecté(e) lorsque je n’ai pas utilisé Strava depuis
+un certain temps : <em>Pas du tout d’accord / Plutôt pas d’accord /
+Plutôt d’accord / Totalement d’accord</em> [a]</li>
+<li>J’ai l’impression de faire partie de la communauté Strava : <em>Pas
+du tout d’accord / Plutôt pas d’accord / Plutôt d’accord / Totalement
+d’accord</em> [a]</li>
+<li>Je ne pourrais pas arrêter d’utiliser Strava : <em>Pas du tout
+d’accord / Plutôt pas d’accord / Plutôt d’accord / Totalement
+d’accord</em> [a]</li>
+<li>Qui peut voir les éléments suivants sur votre compte Strava ?
+[c]</li>
+</ol>
+<ul>
+<li>Vos activités : <em>Uniquement vous-même / Uniquement vos abonnés /
+Tout le monde</em></li>
+<li>Horaire de départ de vos activités : <em>Uniquement vous-même /
+Uniquement vos abonnés / Tout le monde</em></li>
+<li>Fréquence cardiaque : <em>Uniquement vous-même / Uniquement vos
+abonnés / Tout le monde</em></li>
+<li>Allure : <em>Uniquement vous-même / Uniquement vos abonnés / Tout le
+monde</em></li>
+<li>Points de départ et arrivée de vos activités : <em>Uniquement
+vous-même / Uniquement vos abonnés / Tout le monde</em></li>
+</ul>
+<ol start="26" style="list-style-type: decimal">
+<li>Vous publiez sur Strava : <em>Quasiment aucun entraînement /
+Uniquement certain de vos entraînements / Quasiment tous vos
+entraînements / Tous vos entraînements</em> [c]</li>
+<li>Vous publiez sur Strava : <em>Quasiement aucune compétition /
+Uniquement certaines de vos compétitions / Quasiment toutes vos
+compétitions / Toutes vos compéititions</em> [c]</li>
+<li>Lorsque vous publiez une activité sur Strava : [c]</li>
+</ol>
+<ul>
+<li>Nommez-vous votre activité ? <em>Jamais / Parfois / Souvent /
+Toujours</em></li>
+<li>Ajoutez-vous des commentaires ? <em>Jamais / Parfois / Souvent /
+Toujours</em></li>
+<li>Ajoutez-vous des photos ? <em>Jamais / Parfois / Souvent /
+Toujours</em></li>
+</ul>
+<ol start="29" style="list-style-type: decimal">
+<li>Le plus important pour vous lors de la publication d’une activité
+est : <em>Le temps total écoulé La durée totale de déplacement</em></li>
+<li>Qui peut s’abonner à votre compte Strava ? <em>Uniquement les
+utilisateurs que j’accepte Tout le monde</em></li>
+<li>Vous êtes-vous déjà désabonné d’un compte d’un autre utilisateur ?
+<em>Oui / Non</em></li>
+<li>Avez-vous déjà bloqué l’accès à votre compte à un autre utilisateur
+? <em>Oui / Non</em></li>
+<li>Si oui, pour quelle(s) raison(s) ? <em>Pour éviter de communiquer
+avec cet utilisateur / Pour éviter le harcèlement / Autre</em> (Non
+obligatoire)</li>
+<li>A combien de personnes êtes-vous abonné(e) ? (estimation)
+<em>Réponse libre chiffrée</em> [a]</li>
+<li>Parmi les personnes auxquelles vous êtes abonnés, vous avez :
+(plusieurs réponses possibles) <em>Des amis / Des connaissances / Des
+membres de votre famille / Des collègues de travail / Des influenceurs /
+Des athlètes professionnels / Autre</em></li>
+<li>Combien d’abonnés avez-vous sur Strava ? (estimation) <em>Réponse
+libre chiffrée</em> [a]</li>
+<li>Parmi vos abonnés, vous avez : (plusieurs réponses possibles)
+<em>Des amis / Des connaissances / Des membres de votre famille / Des
+collègues de travail / Des influenceurs / Des athlètes professionnels /
+Autre</em></li>
+<li>De combien de clubs Strava faites-vous partie ? <em>Réponse libre
+chiffrée</em></li>
+<li>Envoyez-vous des kudos ? <em>Jamais / Parfois / Souvent /
+Toujours</em> [b]</li>
+<li>Laissez-vous des commentaires ? <em>Jamais / Parfois / Souvent /
+Toujours</em> [b]</li>
+<li>Faites-vous des publications (hors activités) ? <em>Jamais / Parfois
+/ Souvent / Toujours</em> [b]</li>
+<li>Recevez-vous des commentaires ? <em>Jamais / Parfois / Souvent /
+Toujours</em> [b]</li>
+<li>Combien de kudos recevez-vous en moyenne sur une activité de type
+entraînement standard ? <em>Réponse libre chiffrée</em></li>
+<li>Dans quel(s) but(s) utilisez-vous Strava ? (plusieurs réponses
+possibles) <em>Suivi de la performance / Motivation personnelle /
+Interaction sociale / Comparaison avec d’autres coureurs / Partage de
+vos activités / Enregistrement de vos activités / Suivi de progrès /
+Idée de parcours / Côté ludique (segment, classements, KOM/QOM…) /
+Appartenance à une communauté / Encouragements (kudos) / Atteinte
+d’objectifs personnels / Autre</em></li>
+<li>Quelle(s) fonctionnalité(s) de Strava trouvez-vous le(s) plus
+utile(s) dans votre pratique ? (Plusieurs réponses possibles)
+:<em>Enregistrement de vos activités / Suivi GPS . Analyse des
+performances / Segments / Classements / Challenges / Clubs /
+Planification d’itinéraire / Evènements / Heatmap (endroit où vous vous
+êtes le plus entraîné) / Interactions sociales / Kudos / Suivi des
+progrès / Autre</em></li>
+</ol>
+</div>
+<div
+id="self-presentation-and-upward-social-comparison-inclination-scale"
+class="section level5">
+<h5>Self-Presentation and Upward Social Comparison Inclination
+Scale</h5>
+<ol start="46" style="list-style-type: decimal">
+<li>Je consacre beaucoup de temps et d’énergie à publier mes activités
+sur Strava. <em>Pas du tout d’accord / Plutôt pas d’accord / Plutôt
+d’accord / Totalement d’accord</em> [e]</li>
+<li>Il est important pour moi d’avoir beaucoup d’abonnés sur Strava.
+<em>Pas du tout d’accord / Plutôt pas d’accord / Plutôt d’accord /
+Totalement d’accord</em> [e]</li>
+<li>Je supprime mes activités sur Strava qui ne reçoivent pas assez de
+kudos et/ou de commentaires. <em>Pas du tout d’accord / Plutôt pas
+d’accord / Plutôt d’accord / Totalement d’accord</em> [e]</li>
+<li>Je retouche mes activités avant de les publier sur Strava pour
+qu’elles paraissent meilleures. <em>Pas du tout d’accord / Plutôt pas
+d’accord / Plutôt d’accord / Totalement d’accord</em> [e]</li>
+<li>Ce que d’autres coureurs publient sur Strava me rend moins
+satisfait(e) de mes propres performances. <em>Pas du tout d’accord /
+Plutôt pas d’accord / Plutôt d’accord / Totalement d’accord</em>
+[e]</li>
+<li>Les commentaires et les kudos que je reçois à propos des mes
+activités sur Strava influence mon humeur.<em>Pas du tout d’accord /
+Plutôt pas d’accord / Plutôt d’accord / Totalement d’accord</em>
+[e]</li>
+<li>Le plus important pour vous lors de la publication d’une activité
+est : <em>Le temps total écoulé / La durée totale de
+déplacement</em></li>
+</ol>
+</div>
+<div id="perceived-stress-scale" class="section level5">
+<h5>Perceived Stress Scale</h5>
+<ol start="53" style="list-style-type: decimal">
+<li>Au cours du dernier mois, à quelle fréquence avez-vous été
+perturbé(e) par des réactions inattendues à vos publications sur Strava
+? <em>Jamais / Parfois / Souvent / Toujours</em> [f]</li>
+<li>Au cours du dernier mois, à quelle fréquence avez-vous eu
+l’impression d’être obligé(e) de publier vos activités sur Strava
+?<em>Jamais / Parfois / Souvent / Toujours</em> [f]</li>
+<li>Au cours du dernier mois, à quelle fréquence vous êtes-vous senti(e)
+nerveus(e) ou stressé(e) à l’idée de publier vos activités sur Strava ?
+<em>Jamais / Parfois / Souvent / Toujours</em> [f]</li>
+<li>Au cours du dernier mois, à quelle fréquence vous êtes-vous senti(e)
+confiant(e) par rapport à ce que vous publiez sur Strava ? <em>Jamais /
+Parfois / Souvent / Toujours</em> [f]</li>
+<li>Au cours du dernier mois, à quelle fréquence avez-vous eu
+l’impression que vos activités sur Strava vous mettaient en valeur ?
+<em>Jamais / Parfois / Souvent / Toujours</em> [f]</li>
+<li>Au cours du dernier mois, à quelle fréquence avez-vous constaté que
+vous n’étiez pas assez actif(ve) sur Strava (pas assez de publications
+d’activités) ? <em>Jamais / Parfois / Souvent / Toujours</em> [f]</li>
+<li>Au cours du dernier mois, à quelle fréquence avez-vous eu
+l’impression de contrôler la manière dont vous présentez vos activités
+sur Strava ? <em>Jamais / Parfois / Souvent / Toujours</em> [f]</li>
+<li>Au cours du dernier mois, à quelle fréquence avez-vous été irrité(e)
+à cause de la performance des autres sur Strava ? <em>Jamais / Parfois /
+Souvent / Toujours</em> [f]</li>
+<li>Au cours du dernier mois, à quelle fréquence vous-êtes-vous senti(e)
+dépassé(e) par la pression d’atteindre vos objectifs sur Strava ?
+<em>Jamais / Parfois / Souvent / Toujours</em> [f]</li>
+</ol>
+</div>
+<div
+id="mesure-de-la-motivation-à-courir-behavioral-regulation-in-exercise-3-breq3-questionnaire"
+class="section level5">
+<h5>Mesure de la motivation à courir : Behavioral Regulation in Exercise
+3 (BREQ3) Questionnaire</h5>
+<ol start="62" style="list-style-type: decimal">
+<li>Je trouve que courir est une activité agréable. <em>Pas du tout
+d’accord / Plutôt pas d’accord / Plutôt d’accord / Totalement
+d’accord</em> [f]</li>
+<li>Je cours parce que c’est amusant. <em>Pas du tout d’accord / Plutôt
+pas d’accord / Plutôt d’accord / Totalement d’accord</em> [f]</li>
+<li>Je cours parce que c’est une part fondamentale de qui je suis.
+<em>Pas du tout d’accord / Plutôt pas d’accord / Plutôt d’accord /
+Totalement d’accord</em> [f]</li>
+<li>Je cours parce que c’est en accord avec mes objectifs de vie.
+<em>Pas du tout d’accord / Plutôt pas d’accord / Plutôt d’accord /
+Totalement d’accord</em> [f]</li>
+<li>Il est important pour moi de courir. <em>Pas du tout d’accord /
+Plutôt pas d’accord / Plutôt d’accord / Totalement d’accord</em>
+[f]</li>
+<li>J’apprécie les bénéfices de la course à pied. <em>Pas du tout
+d’accord / Plutôt pas d’accord / Plutôt d’accord / Totalement
+d’accord</em> [f]</li>
+<li>Je me sens honteux(se) si je manque un entraînement de course à
+pied. <em>Pas du tout d’accord / Plutôt pas d’accord / Plutôt d’accord /
+Totalement d’accord</em> [f]</li>
+<li>Je me sens en échec si je n’ai pas couru. <em>Pas du tout d’accord /
+Plutôt pas d’accord / Plutôt d’accord / Totalement d’accord</em>
+[f]</li>
+<li>Je ressens de la pression de mes amis pour courir. <em>Pas du tout
+d’accord / Plutôt pas d’accord / Plutôt d’accord / Totalement
+d’accord</em> [f]</li>
+<li>Je cours parce que les autres disent qu’il faut que je le fasse.
+<em>Pas du tout d’accord / Plutôt pas d’accord / Plutôt d’accord /
+Totalement d’accord</em> [f]</li>
+<li>Je ne vois pas pourquoi je devrais courir. <em>Pas du tout d’accord
+/ Plutôt pas d’accord / Plutôt d’accord / Totalement d’accord</em>
+[f]</li>
+<li>Je pense que courir est une perte de temps. <em>Pas du tout d’accord
+/ Plutôt pas d’accord / Plutôt d’accord / Totalement d’accord</em>
+[f]</li>
+</ol>
+</div>
+<div id="questions-annexes" class="section level5">
+<h5>Questions annexes</h5>
+<ol start="74" style="list-style-type: decimal">
+<li>Strava influence mon expérience en tant que coureur(se). <em>Pas du
+tout d’accord / Plutôt pas d’accord / Plutôt d’accord / Totalement
+d’accord</em></li>
+<li>Je me sens plus motivé(e) depuis que j’ai Strava. <em>Pas du tout
+d’accord / Plutôt pas d’accord / Plutôt d’accord / Totalement
+d’accord</em></li>
+<li>Je me sens plus stressé(e) depuis que j’ai Strava. <em>Pas du tout
+d’accord / Plutôt pas d’accord / Plutôt d’accord / Totalement
+d’accord</em></li>
+<li>Utiliser Strava me pousse à ignorer des signaux de fatigue ou
+blessure. <em>Pas du tout d’accord / Plutôt pas d’accord / Plutôt
+d’accord / Totalement d’accord</em></li>
+<li>Depuis que j’utilise Strava, j’ai amélioré mes performances. <em>Pas
+du tout d’accord / Plutôt pas d’accord / Plutôt d’accord / Totalement
+d’accord</em></li>
+<li>Depuis que j’utilise Strava, je cours plus souvent. <em>Pas du tout
+d’accord / Plutôt pas d’accord / Plutôt d’accord / Totalement
+d’accord</em></li>
+<li>Depuis que j’utilise Strava, je cours plus de kilomètres par
+semaine. <em>Pas du tout d’accord / Plutôt pas d’accord / Plutôt
+d’accord / Totalement d’accord</em></li>
+<li>Je participe à plus de compétitions depuis que j’ai Strava. <em>Pas
+du tout d’accord / Plutôt pas d’accord / Plutôt d’accord / Totalement
+d’accord</em></li>
+<li>Si je n’ai pas prévu de faire un entraînement, le fait de regarder
+Strava peut me faire changer d’avis. <em>Pas du tout d’accord / Plutôt
+pas d’accord / Plutôt d’accord / Totalement d’accord</em></li>
+<li>J’ai déjà modifié un entraînement prévu par mon entraîneur ou mon
+plan d’entraînement à cause de Strava. <em>Pas du tout d’accord / Plutôt
+pas d’accord / Plutôt d’accord / Totalement d’accord</em></li>
+<li>J’ai déjà modifié mon programme d’entraînement à cause de Strava.
+<em>Pas du tout d’accord / Plutôt pas d’accord / Plutôt d’accord /
+Totalement d’accord</em></li>
+</ol>
+<p>[a] : traduction et adaptation du questionnaire “Facebook Intensity
+Scale” utilisé dans l’étude d’Ellison<sup>8</sup> et de Ross<sup>9</sup>
+[b] : traduction et adaptation du questionne “Online Sociability
+Functions” utilisé dans l’étude de Ross<sup>9</sup> [c] : extrait,
+traduction et adaptation du questionnaire “Facebook questionnaire”
+utilisé dans l’étude de Ross<sup>9</sup> [d] : traduction et adaptattion
+du questionnaire “Self-Presentation and Upward Social Comparison
+Inclination Scale” dans l’étude de Hjetland<sup>10</sup> [e] :
+traduction et adapatation du questionnaire “Perceived Stress Scale” dans
+l’étude de Sischka <sup>11</sup> [f] : traduction et adaptation du
+questionnaire “12 items BREQ 3” dans l’étude de Rocchi <sup>12</sup></p>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
