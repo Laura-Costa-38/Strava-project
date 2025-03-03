@@ -1,0 +1,45 @@
+/* styles.css */
+h3 {
+  color: #FC4C02;
+}
+
+h2 {
+  color: #FC4C02;
+}
+
+h4 {
+  color: #4F4F4F;
+}
+
+/* Assure que les onglets restent sur une seule ligne et permettent le défilement horizontal */
+.nav-tabs {
+  display: flex;
+  flex-wrap: nowrap;
+  border-bottom: 2px solid #ddd; /* Séparation propre */
+  overflow-x: auto; /* Active le défilement horizontal si besoin */
+  overflow-y: hidden; /* Désactive le défilement vertical */
+  white-space: nowrap; /* Empêche le retour à la ligne */
+}
+
+/* Tronquer le texte des onglets non actifs */
+.nav-tabs > li > a {
+  max-width: 150px; /* Ajuste selon ton besoin */
+  white-space: nowrap; /* Empêche le retour à la ligne */
+  overflow: hidden; /* Cache le texte trop long */
+  text-overflow: ellipsis; /* Ajoute "..." pour tronquer */
+}
+
+/* Afficher le titre complet quand l'onglet est actif */
+.nav-tabs > li.active > a {
+  max-width: none; /* Supprime la limitation */
+  overflow: visible; /* Affiche tout le texte */
+  text-overflow: clip; /* Supprime les "..." */
+}
+
+/* Déplace la barre des onglets en bas */
+.tab-content {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+
