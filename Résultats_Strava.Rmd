@@ -109,7 +109,7 @@ Les mesures réalisées sont les suivantes :
 
 
 ```{r import donnees}
-data<- read_excel("C:/Users/laura/Documents/UGA M1 STAPS ATDM/SHS/Résultats Strava/Utilisation de Strava chez les coureurs amateurs (réponses).xlsx", sheet="Traitement")
+data<- read_excel("Reponses.xlsx", sheet="Traitement")
 ```
 
 
